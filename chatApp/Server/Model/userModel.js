@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 const emailExistance = require("email-existence");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
 //schema for registration of new user
 const registration = mongoose.Schema(
   {
@@ -18,13 +21,22 @@ const registration = mongoose.Schema(
     country: {
       type: String,
       required: [true, "country cannot be left blank"]
-    }
+    },
+    tokens: [
+      {
+        token: {
+          type: String,
+          required: true
+        }
+      }
+    ]
   },
   {
     timestamps: true
   }
 );
 var registerUser = mongoose.model("register", registration);
+exports.registerUser;
 
 exports.userreg = (req, callback) => {
   try {
@@ -33,7 +45,7 @@ exports.userreg = (req, callback) => {
       if (response) {
         //finding the user is already existing or not
         registerUser.findOne({ email: req.body.email }, (err, user) => {
-          console.log(user);
+          console.log("user", user);
           if (err) {
             console.log("Error in findone");
             callback(err);
@@ -47,23 +59,30 @@ exports.userreg = (req, callback) => {
             callback("Existing User");
           } else {
             //code if no user with entered email was found
-            console.log(req.body);
-            var register = registerUser({
-              fullname: req.body.fullname,
-              password: req.body.password,
-              email: req.body.email,
-              country: req.body.country
+            console.log("password", req.body.password);
+            bcrypt.hash(req.body.password, 7, (err, encrypted) => {
+              console.log(encrypted);
+              if (err) {
+                console.log("err find it out");
+              } else {
+                var register = registerUser({
+                  fullName: req.body.fullName,
+                  password: encrypted,
+                  email: req.body.email,
+                  country: req.body.country
+                });
+                // Save User in the database
+                register
+                  .save()
+                  .then(data => {
+                    // res.send(data);
+                    callback(null, data);
+                  })
+                  .catch(err => {
+                    callback(err);
+                  });
+              }
             });
-            // Save User in the database
-            register
-              .save()
-              .then(data => {
-                // res.send(data);
-                callback(null, data);
-              })
-              .catch(err => {
-                callback(err);
-              });
           }
         });
       } else {
@@ -73,5 +92,34 @@ exports.userreg = (req, callback) => {
     });
   } catch (err) {
     console.log(err);
+  }
+};
+
+exports.userLogin = (req, callback) => {
+  try {
+    var response = {};
+    registerUser.findOne({ email: req.body.email }, (err, user) => {
+      if (user) {
+        console.log("password", req.body.password);
+        bcrypt.compare(req.body.password, user.password, (err, encrypted) => {
+          console.log(encrypted);
+          if (err) {
+            console.log("err find it out");
+            callback(err);
+          } else {
+            response._id = user._id;
+            response.fullName = req.body.fullName;
+            response.email = req.body.email;
+            // const token = jwt.sign({ _id: user._id }, process.env.KEY);
+            // response.tokens = user.tokens.concat({ token });
+            callback(null, response);
+          }
+        });
+      } else {
+        console.log("User Not Found");
+      }
+    });
+  } catch (err) {
+    console.log("err in userlogin", err);
   }
 };

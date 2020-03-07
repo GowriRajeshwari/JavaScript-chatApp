@@ -45,3 +45,41 @@ exports.registerUser = (req, res) => {
     });
   }
 };
+
+exports.loginUser = (req, res) => {
+  console.log("controller");
+  //Login a registered user
+  console.log(req.body);
+  //checking password is not empty
+  req.checkBody("password", "Password is invalid").notEmpty();
+  //Checking the email is valid or not
+  req
+    .checkBody("email", "Email is invalid")
+    .notEmpty()
+    .isEmail();
+
+  var response = {};
+  //checking for the Input Validation
+  const errors = req.validationErrors();
+  //if Validation gets error send response to the user
+  if (errors) {
+    response.failure = false;
+    res.status(422).send(response);
+    console.log("error in registration invalid input", errors);
+  } else {
+    console.log(req.body);
+    userService.loginUser(req, (err, data) => {
+      if (err) {
+        console.log(err);
+        response.failure = false;
+        response.err = err;
+        res.status(400).send({ errors: response });
+      } else {
+        console.log("Data : " + data);
+        response.success = true;
+        response.data = data;
+        res.send({ data: response });
+      }
+    });
+  }
+};

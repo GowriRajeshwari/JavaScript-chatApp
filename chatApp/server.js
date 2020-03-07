@@ -5,6 +5,7 @@ const bodyparser = require("body-parser");
 const expressvalidator = require("express-validator");
 const app = express();
 const routes = require("./Server/Routes/routes.js");
+require("dotenv").config();
 //require("./Server/Routes/routes.js")(app);
 
 app.use(bodyparser.urlencoded({ extended: true }));
@@ -19,7 +20,7 @@ mongoose
   })
   .then(() => {
     console.log("Connected to the Database Successfully");
-    app.listen(process.env.PORT || 3000, () => {
+    app.listen(process.env.PORT, () => {
       console.log("server is listening on port 3000");
     });
   })

@@ -15,3 +15,19 @@ exports.register = (req, callback) => {
     console.log(err);
   }
 };
+//login the user
+exports.loginUser = (req, callback) => {
+  try {
+    console.log(" In service :", req.body);
+    model.userLogin(req, (err, data) => {
+      if (err) {
+        //if error callback function is called and passing the error
+        callback(err);
+      } else {
+        callback(null, data);
+      }
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
