@@ -123,3 +123,18 @@ exports.userLogin = (req, callback) => {
     console.log("err in userlogin", err);
   }
 };
+
+//forgot password
+exports.forgotPassword = (request, callback) => {
+  //finding the email is persent or not
+  registerUser.findOne({
+      "email": request.body.email
+  }, (err, data) => {
+      if (data) {
+          callback(null, data)
+      }
+      else {
+          callback("invalid user email ");
+      }
+  })
+}

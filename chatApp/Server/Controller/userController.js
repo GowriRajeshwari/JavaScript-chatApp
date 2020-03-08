@@ -1,4 +1,5 @@
 const userService = require("../Services/userService");
+const jwt = require("../Middleware/Jwt.js")
 // Create and Save a new user
 exports.registerUser = (req, res) => {
   console.log(req.body);
@@ -47,8 +48,6 @@ exports.registerUser = (req, res) => {
 };
 
 exports.loginUser = (req, res) => {
-  console.log("controller");
-  //Login a registered user
   console.log(req.body);
   //checking password is not empty
   req.checkBody("password", "Password is invalid").notEmpty();
@@ -83,3 +82,53 @@ exports.loginUser = (req, res) => {
     });
   }
 };
+
+//forgot Password
+exports.forgotPassword = (req,res)=>{
+  console.log(req.body);
+  //checking email is valid or not
+  req
+    .checkBody("email", "Email is invalid")
+    .notEmpty()
+    .isEmail();
+
+  var response = {};
+  //checking for the Input Validation
+  const errors = req.validationErrors();
+  //if Validation gets error send response to the user
+  if (errors) {
+    response.failure = false;
+    res.status(422).send(response);
+    console.log("error in registration invalid input", errors);
+  } else {
+    
+    userServices.forgotPassword(req, (err, data) => {
+      if (err) {
+          response.failure = false
+          response.data = err
+          res.status(402).send(response)
+      } else {
+          console.log('data')
+          let data_id = data._id;
+          console.log(data_id)
+          let obj = jwt.GenerateToken(data_id);
+          console.log("controller pay load", obj);
+          let url = `http://localhost:3000/forgotPasswordmail`
+
+          console.log(`${obj.token}`)
+          // response.cookie('auth',obj.token);
+          console.log("email", request.body.email)
+          mailler.sendMailer(url, request.body.email)
+          response.token = obj.token;
+          response.sucess = true;
+          response.data = data;
+
+          res.status(200).send(response);
+      }
+  })
+
+
+
+  }
+
+}
