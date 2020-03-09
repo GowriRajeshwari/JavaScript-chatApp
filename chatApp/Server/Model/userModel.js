@@ -21,15 +21,15 @@ const registration = mongoose.Schema(
     country: {
       type: String,
       required: [true, "country cannot be left blank"]
-    },
-    tokens: [
-      {
-        token: {
-          type: String,
-          required: true
-        }
-      }
-    ]
+    }
+    // tokens: [
+    //   {
+    //     token: {
+    //       type: String,
+    //       required: true
+    //     }
+    //   }
+    // ]
   },
   {
     timestamps: true
@@ -125,11 +125,12 @@ exports.userLogin = (req, callback) => {
 };
 
 //forgot password
-exports.forgotPassword = (request, callback) => {
+exports.forgotPassword = (req, callback) => {
   //finding the email is persent or not
+  console.log("forgot password", req.body.email);
   registerUser.findOne(
     {
-      email: request.body.email
+      email: req.body.email
     },
     (err, data) => {
       if (data) {

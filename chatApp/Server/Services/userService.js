@@ -36,7 +36,7 @@ exports.loginUser = (req, callback) => {
 exports.forgotPassword = (req, callback) => {
   try {
     console.log(" In service forgotpassword :", req.body);
-    model.userLogin(req, (err, data) => {
+    model.forgotPassword(req, (err, data) => {
       if (err) {
         //if error callback function is called and passing the error
         callback(err);

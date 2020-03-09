@@ -118,8 +118,8 @@ exports.forgotPassword = (req, res) => {
 
         console.log(`${obj.token}`);
         // response.cookie('auth',obj.token);
-        console.log("email", request.body.email);
-        mailler.sendMailer(url, request.body.email);
+        console.log("email", req.body.email);
+        mailler.sendMailer(url, req.body.email);
         response.token = obj.token;
         response.sucess = true;
         response.data = data;
