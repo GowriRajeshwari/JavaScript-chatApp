@@ -127,14 +127,16 @@ exports.userLogin = (req, callback) => {
 //forgot password
 exports.forgotPassword = (request, callback) => {
   //finding the email is persent or not
-  registerUser.findOne({
-      "email": request.body.email
-  }, (err, data) => {
+  registerUser.findOne(
+    {
+      email: request.body.email
+    },
+    (err, data) => {
       if (data) {
-          callback(null, data)
+        callback(null, data);
+      } else {
+        callback("invalid user email ");
       }
-      else {
-          callback("invalid user email ");
-      }
-  })
-}
+    }
+  );
+};

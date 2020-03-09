@@ -32,7 +32,6 @@ exports.loginUser = (req, callback) => {
   }
 };
 
-
 //forgotPassword
 exports.forgotPassword = (req, callback) => {
   try {
