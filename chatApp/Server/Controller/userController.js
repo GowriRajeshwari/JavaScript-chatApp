@@ -129,3 +129,34 @@ exports.forgotPassword = (req, res) => {
     });
   }
 };
+//reset Password
+exports.resetPassword = (req, res) => {
+  //checking the password is valid or not
+  req.checkBody("password", "Password is invalid").notEmpty();
+  req.checkBody("confirmPassword", "ConfirmPassword is invalid").notEmpty();
+  var response = {};
+  const error = req.validationErrors();
+  //validating the password and confirmpassword is equal
+  if (req.body.password != req.body.confirmPassword) {
+    console.log("Password and confirm Password is not equal");
+    res.send("Password and confirm password is not correct");
+  }
+  if (error) {
+    response.failure = false;
+    response.err = error;
+    res.status(400).send(response);
+  } else {
+    userService.resetPassword(req, (err, data) => {
+      if (err) {
+        response.failure = false;
+        response.err = err;
+        res.status(400).send(response);
+      } else {
+        //sending the response to client
+        response.success = true;
+        response.data = data;
+        res.send({ data: response });
+      }
+    });
+  }
+};

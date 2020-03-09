@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const emailExistance = require("email-existence");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+var ObjectID = require("mongodb").ObjectID;
 
 //schema for registration of new user
 const registration = mongoose.Schema(
@@ -22,14 +22,6 @@ const registration = mongoose.Schema(
       type: String,
       required: [true, "country cannot be left blank"]
     }
-    // tokens: [
-    //   {
-    //     token: {
-    //       type: String,
-    //       required: true
-    //     }
-    //   }
-    // ]
   },
   {
     timestamps: true
@@ -141,3 +133,29 @@ exports.forgotPassword = (req, callback) => {
     }
   );
 };
+exports.resetPassword = (req, callback) => {
+  console.log(req.body);
+  bcrypt.hash(req.body.password, 7, (err, encrypted) => {
+    if (err) {
+      callback(err);
+    } else {
+      registerUser.updateOne(
+        {
+          _id: "5e636be164099f3d477fb6bd"
+        },
+        {
+          password: encrypted
+        },
+        (err, data) => {
+          if (err) {
+            callback(err);
+          } else {
+            console.log("password", ObjectID(req.body._id));
+            callback(null, data);
+          }
+        }
+      );
+    }
+  });
+};
+

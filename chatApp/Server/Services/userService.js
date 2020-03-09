@@ -48,3 +48,20 @@ exports.forgotPassword = (req, callback) => {
     console.log(err);
   }
 };
+
+//ResetPassword
+exports.resetPassword = (req, callback) => {
+  try {
+    console.log(" In service forgotpassword :", req.body);
+    model.resetPassword(req, (err, data) => {
+      if (err) {
+        //if error callback function is called and passing the error
+        callback(err);
+      } else {
+        callback(null, data);
+      }
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};

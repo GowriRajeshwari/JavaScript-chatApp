@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const usercontroller = require("../Controller/userController.js");
+const tokenVerify = require("../Middleware/Jwt");
 
 //calling the POST method for creating a new user
 router.post("/register", usercontroller.registerUser);
@@ -13,5 +14,12 @@ router.post("/users/login", usercontroller.loginUser);
 
 //forgot password
 router.post("/users/forgotpassword", usercontroller.forgotPassword);
+
+//reset Password
+router.post(
+  "/users/resetpassword",
+  tokenVerify.auth,
+  usercontroller.resetPassword
+);
 
 module.exports = router;

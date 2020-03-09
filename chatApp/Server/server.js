@@ -4,7 +4,7 @@ const express = require("express");
 const bodyparser = require("body-parser");
 const expressvalidator = require("express-validator");
 const app = express();
-const routes = require("./Routes/routes.js");
+const routes = require("./Server/Routes/routes.js");
 require("dotenv").config();
 //require("./Server/Routes/routes.js")(app);
 
