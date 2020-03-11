@@ -20,11 +20,12 @@ mongoose
   })
   .then(() => {
     console.log("Connected to the Database Successfully");
-    app.listen(process.env.PORT, () => {
-      console.log("server is listening on port 3000");
-    });
   })
   .catch(err => {
     console.log("Not connected to the database ", err);
     process.exit();
   });
+
+module.exports = app.listen(process.env.PORT, () => {
+  console.log("server is listening on port 3000");
+});

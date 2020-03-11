@@ -2,21 +2,26 @@
   "name": "chatapp",
   "version": "1.0.0",
   "description": "Chat Application",
-  "main": "server.js",
+  "main": "test.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "env-cmd -f ./.env nodemon chatApp/Server/server.js"
+    "test": "mocha --require babel-register Test/*.js --exit",
+    "dev": "nodemon --exec babel-node --presets babel-preset-env ./server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "bcryptjs": "^2.4.3",
     "body-parse": "^0.1.0",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
     "dotenv": "^8.2.0",
     "email-existence": "^0.1.6",
     "express": "^4.17.1",
     "express-validator": "^5.3.0",
     "jsonwebtoken": "^8.5.1",
+    "mocha": "^5.1.1",
     "mongoose": "^5.9.3",
     "nodemailer": "^4.7.0",
     "nodemon": "^2.0.2"

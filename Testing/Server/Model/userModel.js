@@ -32,14 +32,11 @@ exports.registerUser;
 
 exports.userreg = (req, callback) => {
   try {
-    console.log("In model", req.body.email);
     emailExistance.check(req.body.email, (err, response) => {
       if (response) {
         //finding the user is already existing or not
         registerUser.findOne({ email: req.body.email }, (err, user) => {
-          console.log("user", user);
           if (err) {
-            console.log("Error in findone");
             callback(err);
           }
 
@@ -51,11 +48,8 @@ exports.userreg = (req, callback) => {
             callback("Existing User");
           } else {
             //code if no user with entered email was found
-            console.log("password", req.body.password);
             bcrypt.hash(req.body.password, 7, (err, encrypted) => {
-              console.log(encrypted);
               if (err) {
-                console.log("err find it out");
               } else {
                 var register = registerUser({
                   fullName: req.body.fullName,
@@ -78,13 +72,10 @@ exports.userreg = (req, callback) => {
           }
         });
       } else {
-        console.log(err);
         callback("Email Id is not valid check with email is exist or not");
       }
     });
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 };
 
 exports.userLogin = (req, callback) => {
@@ -92,11 +83,8 @@ exports.userLogin = (req, callback) => {
     var response = {};
     registerUser.findOne({ email: req.body.email }, (err, user) => {
       if (user) {
-        console.log("password", req.body.password);
         bcrypt.compare(req.body.password, user.password, (err, encrypted) => {
-          console.log(encrypted);
           if (err) {
-            console.log("err find it out");
             callback(err);
           } else {
             response._id = user._id;
@@ -108,18 +96,14 @@ exports.userLogin = (req, callback) => {
           }
         });
       } else {
-        console.log("User Not Found");
       }
     });
-  } catch (err) {
-    console.log("err in userlogin", err);
-  }
+  } catch (err) {}
 };
 
 //forgot password
 exports.forgotPassword = (req, callback) => {
   //finding the email is persent or not
-  console.log("forgot password", req.body.email);
   registerUser.findOne(
     {
       email: req.body.email
@@ -134,7 +118,6 @@ exports.forgotPassword = (req, callback) => {
   );
 };
 exports.resetPassword = (req, callback) => {
-  console.log(req.body);
   bcrypt.hash(req.body.password, 7, (err, encrypted) => {
     if (err) {
       callback(err);
@@ -150,7 +133,6 @@ exports.resetPassword = (req, callback) => {
           if (err) {
             callback(err);
           } else {
-            console.log("password", ObjectID(req.body._id));
             callback(null, data);
           }
         }
@@ -158,4 +140,3 @@ exports.resetPassword = (req, callback) => {
     }
   });
 };
-
