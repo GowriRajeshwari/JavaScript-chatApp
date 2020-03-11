@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const emailExistance = require("email-existence");
 const bcrypt = require("bcryptjs");
-var ObjectID = require("mongodb").ObjectID;
 
 //schema for registration of new user
 const registration = mongoose.Schema(
@@ -124,7 +123,7 @@ exports.resetPassword = (req, callback) => {
     } else {
       registerUser.updateOne(
         {
-          _id: "5e636be164099f3d477fb6bd"
+          _id: req.decoded.data_id
         },
         {
           password: encrypted
@@ -133,6 +132,7 @@ exports.resetPassword = (req, callback) => {
           if (err) {
             callback(err);
           } else {
+            //   console.log(req.decoded);
             callback(null, data);
           }
         }

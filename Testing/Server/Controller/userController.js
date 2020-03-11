@@ -3,7 +3,7 @@ const jwt = require("../Middleware/Jwt.js");
 const mailler = require("../Middleware/nodeMailer.js");
 // Create and Save a new user
 exports.registerUser = (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   //checking the Name want to have min 3 character
   req
     .checkBody("fullName", "Name is invalid")
@@ -90,13 +90,13 @@ exports.forgotPassword = (req, res) => {
   //if Validation gets error send response to the user
   if (errors) {
     response.failure = false;
-    return res.status(422).send(response);
+    return res.status(404).send(response);
   } else {
     userService.forgotPassword(req, (err, data) => {
       if (err) {
         response.failure = false;
         response.data = err;
-        return res.status(402).send(response);
+        return res.status(404).send(response);
       } else {
         let data_id = data._id;
         let obj = jwt.GenerateToken(data_id);
@@ -122,18 +122,18 @@ exports.resetPassword = (req, res) => {
   const error = req.validationErrors();
   //validating the password and confirmpassword is equal
   if (req.body.password != req.body.confirmPassword) {
-    return res.send("Password and confirm password is not correct");
+    return res.status(404).send("Password and confirm password is not correct");
   }
   if (error) {
     response.failure = false;
     response.err = error;
-    return res.status(400).send(response);
+    return res.status(404).send(response);
   } else {
     userService.resetPassword(req, (err, data) => {
       if (err) {
         response.failure = false;
         response.err = err;
-        return res.status(400).send(response);
+        return res.status(404).send(response);
       } else {
         //sending the response to client
         response.success = true;

@@ -1,7 +1,7 @@
 var nodemailer = require("nodemailer");
 //sending the mail to client for reset password
 exports.sendMailer = (url, email) => {
-  console.log("In mailer", process.env.EMAIL, process.env.PASSWORD); //sets the variables from the env file
+  //console.log("In mailer", process.env.EMAIL, process.env.PASSWORD); //sets the variables from the env file
   var transporter = nodemailer.createTransport({
     service: "Gmail",
     auth: {

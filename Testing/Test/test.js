@@ -1,13 +1,14 @@
 import chai from "chai";
 import chaiHttp from "chai-http";
 import app from "../server";
+// const token = require("../Middleware/Jwt.js");
 // Configure chai
 chai.use(chaiHttp);
 chai.should();
 //Test case for Login for Founded User
-describe("login Positive Value", () => {
+describe("Server API Checking for Post method", () => {
   describe("POST /", () => {
-    // Test to get all students record
+    //Login User
     it("Login the user", done => {
       chai
         .request(app)
@@ -20,22 +21,17 @@ describe("login Positive Value", () => {
         .end((err, res) => {
           if (err) {
             console.log("err");
-            err.response.body.should.have.property("error");
+            err.res.body.should.have.property("error");
             done();
           } else {
-            console.log("res");
             //res.should.have.status(404);
             res.body.should.be.a("object");
             done();
           }
         });
     });
-  });
-});
-//Test case for the User Not found
-describe("login Negative Value", () => {
-  describe("POST /", () => {
-    // Test to get all students record
+
+    // User NOt found
     it("User not found while login", done => {
       chai
         .request(app)
@@ -49,24 +45,17 @@ describe("login Negative Value", () => {
         .end((err, res) => {
           if (err) {
             console.log("err");
-            err.response.body.should.have.property("error");
+            err.res.body.should.have.property("error");
             done();
           } else {
-            console.log("res");
             res.should.have.status(404);
             res.body.should.be.a("object");
             done();
           }
         });
     });
-  });
-});
 
-//Test case for the Registeration
-
-describe("Registration", () => {
-  describe("POST /", () => {
-    // Test to get all students record
+    Resigtration API
     it("Register the Users ", done => {
       chai
         .request(app)
@@ -76,27 +65,23 @@ describe("Registration", () => {
         .send({
           fullName: "gowrik",
           password: "gowri@35",
-          email: "gowrikannan216@gmail.com",
+          email: "gowripanda35@gmail.com",
           country: "heydrabad"
         })
         .end((err, res) => {
           if (err) {
             console.log("err");
-            err.response.body.should.have.property("error");
+            err.res.body.should.have.property("error");
             done();
           } else {
-            console.log("res");
             res.body.should.be.a("object");
             done();
           }
         });
     });
-  });
-});
-//test case for Alreay Existing User
-describe("Registration", () => {
-  describe("POST /", () => {
-    // Test to get all students record
+
+    //test case for Alreay Existing User
+
     it("Existing Users ", done => {
       chai
         .request(app)
@@ -112,10 +97,107 @@ describe("Registration", () => {
         .end((err, res) => {
           if (err) {
             console.log("err");
-            err.response.body.should.have.property("error");
+            err.res.body.should.have.property("error");
             done();
           } else {
-            console.log("res");
+            res.should.have.status(404);
+            res.body.should.be.a("object");
+            done();
+          }
+        });
+    });
+
+    //forgot Password Generate token and send mail for reset password
+    it("Forgot Password sending mail API", done => {
+      chai
+        .request(app)
+        .post("/users/forgotPassword")
+        .set("content-type", "application/x-www-form-urlencoded")
+        .send({
+          email: "gowrikanaga216@gmail.com"
+        })
+        .end((err, res) => {
+          if (err) {
+            console.log("err");
+            err.res.body.should.have.property("error");
+            done();
+          } else {
+            res.should.have.status(200);
+            res.body.should.be.a("object");
+            done();
+          }
+        });
+    });
+
+    //Email not found for sending mail in forgot Password
+    it("Email not found for forgot Password API", done => {
+      chai
+        .request(app)
+        .post("/users/forgotPassword")
+        .set("content-type", "application/x-www-form-urlencoded")
+        .send({
+          email: "gowripanda35@gmail.com"
+        })
+        .end((err, res) => {
+          if (err) {
+            console.log("err");
+            err.res.body.should.have.property("error");
+            done();
+          } else {
+            res.should.have.status(404);
+            res.body.should.be.a("object");
+            done();
+          }
+        });
+    });
+
+    //Reset Password
+    it("Reset password for login user", done => {
+      //console.log(auth.req.decoded.data_id);
+      chai
+        .request(app)
+        .post("/users/resetPassword")
+        .set(
+          "Authorization",
+          "Bearer " +
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhX2lkIjoiNWU2ODk4NWZjMGMxYzU2ZjI1YzQ3NTVlIiwiaWF0IjoxNTgzOTMwMDI1LCJleHAiOjE1ODM5MzM2MjV9.EA5W6CP4S-c_WLSd3jLYG8CpBF9D80kSWYgRf4OjC0I"
+        )
+        .send({
+          password: "rajeshwari@355",
+          confirmPassword: "rajeshwari@355"
+        })
+        .end((err, res) => {
+          if (err) {
+            err.res.body.should.have.property("error");
+            done();
+          } else {
+            res.body.should.be.a("object");
+            done();
+          }
+        });
+    });
+
+    //Password not changed
+    //Reset Password
+    it("Reset password for login user", done => {
+      //console.log(auth.req.decoded.data_id);
+      chai
+        .request(app)
+        .post("/users/resetPassword")
+        .set(
+          "Authorization",
+          "Bearer " +
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhX2lkIjoiNWU2ODk4NWZjMGMxYzU2ZjI1YzQ3NTVlIiwiaWF0IjoxNTgzOTMwMDI1LCJleHAiOjE1ODM5MzM2MjV9.EA5W6CP4S-c_WLSd3jLYG8CpBF9D80kSWYgRf4OjC0I"
+        )
+        .send({
+          password: "rajeshwari@355",
+          confirmPassword: "rajeshwar@355"
+        })
+        .end((err, res) => {
+          if (err) {
+            err.res.body.should.have.property("error");
+            done();
+          } else {
             res.should.have.status(404);
             res.body.should.be.a("object");
             done();

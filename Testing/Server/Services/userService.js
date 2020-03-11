@@ -2,7 +2,7 @@ const model = require("../Model/userModel.js");
 
 exports.register = (req, callback) => {
   try {
-    console.log(" In service :", req.body);
+    //console.log(" In service :", req.body);
     model.userreg(req, (err, data) => {
       if (err) {
         //if error callback function is called and passing the error
@@ -18,7 +18,7 @@ exports.register = (req, callback) => {
 //login the user
 exports.loginUser = (req, callback) => {
   try {
-    console.log(" In service :", req.body);
+    // console.log(" In service :", req.body);
     model.userLogin(req, (err, data) => {
       if (err) {
         //if error callback function is called and passing the error
@@ -35,7 +35,7 @@ exports.loginUser = (req, callback) => {
 //forgotPassword
 exports.forgotPassword = (req, callback) => {
   try {
-    console.log(" In service forgotpassword :", req.body);
+    //  console.log(" In service forgotpassword :", req.body);
     model.forgotPassword(req, (err, data) => {
       if (err) {
         //if error callback function is called and passing the error
@@ -52,7 +52,7 @@ exports.forgotPassword = (req, callback) => {
 //ResetPassword
 exports.resetPassword = (req, callback) => {
   try {
-    console.log(" In service forgotpassword :", req.body);
+    //  console.log(" In service forgotpassword :", req.body);
     model.resetPassword(req, (err, data) => {
       if (err) {
         //if error callback function is called and passing the error
