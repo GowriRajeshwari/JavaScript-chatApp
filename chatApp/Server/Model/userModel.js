@@ -141,7 +141,7 @@ exports.resetPassword = (req, callback) => {
     } else {
       registerUser.updateOne(
         {
-          _id: "5e636be164099f3d477fb6bd"
+          _id: req.decoded.data_id
         },
         {
           password: encrypted
@@ -158,4 +158,3 @@ exports.resetPassword = (req, callback) => {
     }
   });
 };
-
