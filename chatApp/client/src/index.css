@@ -1,0 +1,123 @@
+.Button {
+  padding: 0px;
+}
+/* body,
+html,
+#root,
+.app,
+.container {
+  width: 100%;
+  height: 100%;
+} */
+.container {
+  height: 640px;
+  font-size: 28px;
+  color: rgb(172, 13, 13);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+}
+.loginFrom {
+  box-sizing: border-box;
+  width: 450px;
+  height: 250px;
+  max-width: 400px;
+  padding-left: 20px;
+  padding-left: 20px;
+  border: 3px solid #73ad21;
+}
+.loginstyle {
+  padding: 16px;
+}
+/* .border {
+  align-items: center;
+  justify-content: center;
+  width: 450px;
+  border: 3px solid #73ad21;
+} */
+.inputField {
+  padding: 16px;
+}
+#input {
+  box-sizing: border-box;
+  outline: none;
+  border: solid 2px #1189de;
+  border-radius: 4px;
+  color: #292929;
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 1);
+}
+.passinputField {
+  padding: 16px;
+  width: 50px;
+}
+.submitButton {
+  padding: 16px;
+}
+#btn {
+  width: 100%;
+  min-width: 280px;
+  color: #565656;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: bold;
+  /* border: solid 2px #1189de; */
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+}
+#subbtn {
+  width: 90%;
+  background-color: #1189de;
+  font-weight: bold;
+  color: #fff;
+}
+#passbtn {
+  min-width: 260px;
+  color: #565656;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.belowlogin {
+  padding: 10px;
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+}
+#forgotstyle {
+  font-size: 10px;
+  font-style: italic;
+  font-weight: bold;
+}
+.loginPageCenter {
+  margin: auto;
+  width: 30%;
+  height: 50%;
+  border: 3px solid #73ad21;
+  padding: 10px;
+  justify-content: center;
+  margin-top: 10%;
+}
+.Textstyle {
+  padding: 10px;
+  margin-left: 70px;
+  /* justify-content: center; */
+}
+#buttonstyle {
+  background-color: #00ffff;
+  margin-left: 47%;
+  padding: 5px;
+  margin: 15;
+  /* align-content: center;
+  text-align: center; */
+  justify-content: center;
+}
+.button {
+  padding: 10px;
+}

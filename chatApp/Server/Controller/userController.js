@@ -65,22 +65,24 @@ exports.loginUser = (req, res) => {
   const errors = req.validationErrors();
   //if Validation gets error send response to the user
   if (errors) {
-    response.failure = false;
-    res.status(422).send(response);
+    response.success = false;
+    res.send(response);
     console.log("error in registration invalid input", errors);
   } else {
     console.log(req.body);
     userService.loginUser(req, (err, data) => {
       if (err) {
         console.log(err);
-        response.failure = false;
-        response.err = err;
-        res.status(400).send({ errors: response });
+        response.success = false;
+        response.message = err;
+        console.log(err);
+        res.status(202).send({ data: response });
       } else {
-        console.log("Data : " + data);
         response.success = true;
         response.data = data;
-        res.send({ data: response });
+        console.log(response);
+        response.message = "Login Successfully";
+        res.status(200).send({ data: response });
       }
     });
   }

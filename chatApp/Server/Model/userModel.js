@@ -97,17 +97,20 @@ exports.userLogin = (req, callback) => {
           console.log(encrypted);
           if (err) {
             console.log("err find it out");
-            callback(err);
-          } else {
+            callback("Password is Incorrect");
+          } else if (encrypted) {
             response._id = user._id;
             response.fullName = req.body.fullName;
             response.email = req.body.email;
             // const token = jwt.sign({ _id: user._id }, process.env.KEY);
             // response.tokens = user.tokens.concat({ token });
             callback(null, response);
+          } else {
+            callback("Password is Incorrect");
           }
         });
       } else {
+        callback("User Not Found");
         console.log("User Not Found");
       }
     });
