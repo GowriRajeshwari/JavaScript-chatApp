@@ -19,14 +19,31 @@ html,
   justify-content: center;
   background-color: #fff;
 }
+.top {
+  margin-top: 10px;
+}
 .loginFrom {
   box-sizing: border-box;
   width: 450px;
   height: 250px;
   max-width: 400px;
   padding-left: 20px;
+
+  border: 3px solid #73ad21;
+}
+.regFrom {
+  box-sizing: border-box;
+  width: 450px;
+  height: 400px;
+  max-width: 400px;
+  padding-left: 20px;
   padding-left: 20px;
   border: 3px solid #73ad21;
+}
+.helperttext {
+  color: rgb(172, 13, 13);
+  font-size: 14px;
+  padding-left: 20px;
 }
 .loginstyle {
   padding: 16px;
@@ -57,6 +74,10 @@ html,
 }
 .submitButton {
   padding: 16px;
+}
+.Buttonreg {
+  padding: 16px;
+  /* margin-top: 40px; */
 }
 #btn {
   width: 100%;

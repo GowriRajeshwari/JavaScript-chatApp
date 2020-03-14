@@ -2,75 +2,67 @@ import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import { login } from "../services/loginService";
+import { resetPassword } from "../services/loginService";
 
 //login Component
-class Login extends Component {
+class resetpassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
       helperText: "",
       error: false,
-      users: [],
       email: "",
       password: "",
-      login: "LOGIN",
+      confirmPassword: "",
+      resetpassword: "RESET PASSWORD",
       message: "",
       username: ""
     };
-    this.SignIn = this.SignIn.bind(this);
-  }
-  forgotpassword(event) {
-    event.preventDefault();
-    this.props.history.push("/forgotPassword");
-  }
-  register(event) {
-    event.preventDefault();
-    console.log("register clicked");
-    this.props.history.push("/register");
+    this.resetPassword = this.resetPassword.bind(this);
   }
   //sign in button
-  SignIn(event) {
+  resetPassword(event) {
     event.preventDefault();
     console.log("login clicked");
     let data = {
-      email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      confirmPassword: this.state.confirmPassword
     };
     console.log(data);
-    login(data).then(response => {
-      //console.log(response.data.data.data.fullName);
+    resetPassword(data).then(response => {
+      console.log(response);
       if (response.status === 200) {
         this.setState({
-          message: "Login Successfully",
-          username: response.data.data.data.fullName
+          message: "Password reset Successfully"
+          //   username: response.data.data.data.fullName
         });
-        this.props.history.push({
-          pathname: "/loginSuccess",
-          state: { username: this.state.username }
-        });
+        // this.props.history.push({
+        //   pathname: "/loginSuccess",
+        //   state: { username: this.state.username }
+        // });
       } else {
-        this.setState({ message: "Login Not Successfull" });
-        alert("Make Sure that email and password is correct");
+        this.setState({ message: "Password is Not changed" });
+        alert("Make Sure that password & confirmPassword is correct");
       }
     });
   }
 
-  onChangeEmail(event) {
+  onChangeConfirmPassword(event) {
     if (event.target.value.length > 2) {
       this.setState({
         helperText: "",
         error: false,
-        email: event.target.value
+        confirmPassword: event.target.value
       });
     } else {
       this.setState({
         helperText: "Invalid format",
         error: true,
-        email: event.target.value
+        confirmPassword: event.target.value
       });
     }
   }
+
   onChangePassword(event) {
     if (event.target.value.length > 7) {
       this.setState({
@@ -96,19 +88,10 @@ class Login extends Component {
         ></meta>
 
         <div className="container">
-          <div className="loginstyle">{this.state.login}</div>
+          <div className="loginstyle">{this.state.resetpassword}</div>
 
           <div className="border">
             <div className="loginFrom">
-              <div className="inputField">
-                <TextField
-                  helperText={this.state.helperText}
-                  id="btn"
-                  variant="outlined"
-                  label="Email"
-                  onChange={this.onChangeEmail.bind(this)}
-                />
-              </div>
               <div className="inputField">
                 <TextField
                   hintText="Password"
@@ -121,20 +104,24 @@ class Login extends Component {
                   onChange={this.onChangePassword.bind(this)}
                 ></TextField>
               </div>
+              <div className="inputField">
+                <TextField
+                  hintText="Confirm Password"
+                  floatingLabelText="Confirm Password"
+                  id="btn"
+                  variant="outlined"
+                  type="password"
+                  label="Confirm Password"
+                  helperText={this.state.helperText}
+                  onChange={this.onChangeConfirmPassword.bind(this)}
+                ></TextField>
+              </div>
               <div className="submitButton">
-                <Button id="subbtn" onClick={e => this.SignIn(e)}>
+                <Button id="subbtn" onClick={e => this.resetPassword(e)}>
                   SUBMIT
                 </Button>
               </div>
             </div>
-          </div>
-          <div className="belowlogin">
-            <Button id="forgotstyle" onClick={e => this.forgotpassword(e)}>
-              Forgot Password
-            </Button>
-            <Button id="forgotstyle" onClick={e => this.register(e)}>
-              Not a Member Yet?
-            </Button>
           </div>
         </div>
       </MuiThemeProvider>
@@ -142,4 +129,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default resetpassword;

@@ -83,6 +83,7 @@ exports.userreg = (req, callback) => {
       }
     });
   } catch (err) {
+    callback("Email is not Exist");
     console.log(err);
   }
 };
@@ -100,7 +101,7 @@ exports.userLogin = (req, callback) => {
             callback("Password is Incorrect");
           } else if (encrypted) {
             response._id = user._id;
-            response.fullName = req.body.fullName;
+            response.fullName = user.fullName;
             response.email = req.body.email;
             // const token = jwt.sign({ _id: user._id }, process.env.KEY);
             // response.tokens = user.tokens.concat({ token });

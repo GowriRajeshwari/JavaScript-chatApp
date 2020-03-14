@@ -27,22 +27,25 @@ exports.registerUser = (req, res) => {
   const errors = req.validationErrors();
   //if Validation gets error send response to the user
   if (errors) {
-    response.failure = false;
-    res.status(422).send(response);
+    response.success = false;
+    let data = { message: "Invalid Input" };
+    response.data = data;
+    res.status(202).send(response);
     console.log("error in registration invalid input", errors);
   } else {
     console.log(req.body);
     userService.register(req, (err, data) => {
       if (err) {
         console.log(err);
-        response.failure = false;
-        response.err = err;
-        res.status(400).send({ errors: response });
+        response.success = false;
+        response.message = err;
+        res.status(202).send({ data: response });
       } else {
-        console.log("Data : " + data);
         response.success = true;
         response.data = data;
-        res.send({ data: response });
+        console.log(response);
+        response.message = "Register Successfully";
+        res.status(200).send({ data: response });
       }
     });
   }
@@ -66,7 +69,8 @@ exports.loginUser = (req, res) => {
   //if Validation gets error send response to the user
   if (errors) {
     response.success = false;
-    res.send(response);
+    response.message = "Invalid Input";
+    res.status(202).send(response);
     console.log("error in registration invalid input", errors);
   } else {
     console.log(req.body);
@@ -102,31 +106,34 @@ exports.forgotPassword = (req, res) => {
   const errors = req.validationErrors();
   //if Validation gets error send response to the user
   if (errors) {
-    response.failure = false;
-    res.status(422).send(response);
+    response.success = false;
+    response.message = "Invalid Input";
+    res.status(202).send(response);
     console.log("error in registration invalid input", errors);
   } else {
     userService.forgotPassword(req, (err, data) => {
       if (err) {
-        response.failure = false;
-        response.data = err;
-        res.status(402).send(response);
+        console.log(err);
+        response.success = false;
+        response.message = err;
+        res.status(202).send({ data: response });
       } else {
         console.log("data");
         let data_id = data._id;
         console.log(data_id);
         let obj = jwt.GenerateToken(data_id);
-        let url = `http://localhost:3000/forgotPasswordmail`;
+        let url = `http://localhost:3000/resetpassword`;
 
         console.log(`${obj.token}`);
         // response.cookie('auth',obj.token);
         console.log("email", req.body.email);
         mailler.sendMailer(url, req.body.email);
         response.token = obj.token;
-        response.sucess = true;
+        response.success = true;
         response.data = data;
-
-        res.status(200).send(response);
+        console.log(response);
+        response.message = "Send Mail Successfully";
+        res.status(200).send({ data: response });
       }
     });
   }
@@ -144,20 +151,24 @@ exports.resetPassword = (req, res) => {
     res.send("Password and confirm password is not correct");
   }
   if (error) {
-    response.failure = false;
-    response.err = error;
-    res.status(400).send(response);
+    console.log(err);
+    response.success = false;
+    response.message = err;
+    res.status(202).send({ data: response });
   } else {
     userService.resetPassword(req, (err, data) => {
       if (err) {
-        response.failure = false;
-        response.err = err;
-        res.status(400).send(response);
+        console.log(err);
+        response.success = false;
+        response.message = err;
+        res.status(202).send({ data: response });
       } else {
         //sending the response to client
         response.success = true;
         response.data = data;
-        res.send({ data: response });
+        console.log(response);
+        response.message = "Reset Password Successfully";
+        res.status(200).send({ data: response });
       }
     });
   }

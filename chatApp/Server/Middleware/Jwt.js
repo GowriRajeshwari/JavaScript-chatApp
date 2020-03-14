@@ -2,8 +2,8 @@ const jwt = require("jsonwebtoken");
 
 const auth = (req, res, next) => {
   console.log(req.body);
-  const token = req.header("Authorization").replace("Bearer ", "");
-  console.log(token);
+  const token = req.header("Authorization");
+  console.log("token", token);
   jwt.verify(token, process.env.KEY, (err, result) => {
     if (err) {
       res.status(422).send(err);
