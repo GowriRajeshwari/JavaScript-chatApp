@@ -4,7 +4,7 @@ const usercontroller = require("../Controller/userController.js");
 const tokenVerify = require("../Middleware/Jwt");
 
 //calling the POST method for creating a new user
-router.post("/register", usercontroller.registerUser);
+router.post("/users/register", usercontroller.registerUser);
 
 //calling the POST method for login
 router.post("/users/login", usercontroller.loginUser);

@@ -3,7 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { register } from "../services/loginService";
-//login Component
+//Register Component
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +21,7 @@ class Register extends Component {
     };
     this.RegisterBtn = this.RegisterBtn.bind(this);
   }
-  //sign in button
+  //register Event Handler
   RegisterBtn(event) {
     event.preventDefault();
     console.log("Register clicked");
@@ -56,7 +56,7 @@ class Register extends Component {
       }
     });
   }
-
+//setState for email field and validation
   onChangeEmail(event) {
     if (event.target.value.length > 2) {
       this.setState({
@@ -72,6 +72,7 @@ class Register extends Component {
       });
     }
   }
+ // setState for password field and validation
   onChangePassword(event) {
     if (event.target.value.length > 7) {
       this.setState({
@@ -87,6 +88,7 @@ class Register extends Component {
       });
     }
   }
+  //setState for Name field and validation
   onChangeName(event) {
     if (event.target.value.length > 3) {
       this.setState({
@@ -102,6 +104,7 @@ class Register extends Component {
       });
     }
   }
+ // setState for Country field && validation
   onChangeCountry(event) {
     if (event.target.value.length > 3) {
       this.setState({

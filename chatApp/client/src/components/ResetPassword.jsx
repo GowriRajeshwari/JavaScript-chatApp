@@ -4,8 +4,9 @@ import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { resetPassword } from "../services/loginService";
 
-//login Component
+//ResetPassword Component
 class resetpassword extends Component {
+  //constructor
   constructor(props) {
     super(props);
     this.state = {
@@ -16,11 +17,18 @@ class resetpassword extends Component {
       confirmPassword: "",
       resetpassword: "RESET PASSWORD",
       message: "",
-      username: ""
+      username: "",
+      token :""
     };
     this.resetPassword = this.resetPassword.bind(this);
   }
-  //sign in button
+  //ComponentDidMount in Life cycle function be used
+  componentDidMount(){
+    const token = localStorage.getItem('token');
+    this.setState({token : token});
+    console.log("token",JSON.stringify(token));
+  }
+  //reset Password Event Handler
   resetPassword(event) {
     event.preventDefault();
     console.log("login clicked");
@@ -29,24 +37,20 @@ class resetpassword extends Component {
       confirmPassword: this.state.confirmPassword
     };
     console.log(data);
-    resetPassword(data).then(response => {
+    //Calling the API using axios method
+    resetPassword(data,this.state.token).then(response => {
       console.log(response);
       if (response.status === 200) {
         this.setState({
           message: "Password reset Successfully"
-          //   username: response.data.data.data.fullName
         });
-        // this.props.history.push({
-        //   pathname: "/loginSuccess",
-        //   state: { username: this.state.username }
-        // });
       } else {
         this.setState({ message: "Password is Not changed" });
         alert("Make Sure that password & confirmPassword is correct");
       }
     });
   }
-
+//setState for confirm password field
   onChangeConfirmPassword(event) {
     if (event.target.value.length > 2) {
       this.setState({
@@ -62,7 +66,7 @@ class resetpassword extends Component {
       });
     }
   }
-
+//setState for password field
   onChangePassword(event) {
     if (event.target.value.length > 7) {
       this.setState({
@@ -78,7 +82,7 @@ class resetpassword extends Component {
       });
     }
   }
-
+//Render function && User Interface for resetPassword
   render() {
     return (
       <MuiThemeProvider>
@@ -122,6 +126,8 @@ class resetpassword extends Component {
                 </Button>
               </div>
             </div>
+            <div className="loginstyle">{this.state.message}</div>
+
           </div>
         </div>
       </MuiThemeProvider>

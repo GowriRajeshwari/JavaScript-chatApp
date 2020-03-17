@@ -3,7 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { forgotpassword, resetPassword } from "../services/loginService";
-import ResetPassword from "../components/ResetPassword";
+// import ResetPassword from "../components/ResetPassword";
 
 //ForgotPassword Component
 class forgotPassword extends Component {
@@ -37,18 +37,15 @@ class forgotPassword extends Component {
         this.setState({
           token: response.data.data.token
         });
-
-        // this.props.history.push({
-        //   pathname: "/loginSuccess",
-        //   state: { username: this.state.username }
-        // });
+        localStorage.setItem('token',response.data.data.token );
+        alert("Link is Send to the Mail");
       } else {
         this.setState({ message: "Mail is not Exist" });
         alert("Make sure Mail is Exist");
       }
     });
   }
-
+//setState for email field
   onChangeEmail(event) {
     if (event.target.value.length > 2) {
       this.setState({
@@ -64,6 +61,7 @@ class forgotPassword extends Component {
       });
     }
   }
+  //Render and User Interface for Forgot Password
   render() {
     return (
       <MuiThemeProvider>
@@ -73,7 +71,7 @@ class forgotPassword extends Component {
         ></meta>
 
         <div className="container">
-          <ResetPassword token={this.state.token}></ResetPassword>
+          {/* <ResetPassword token={this.state.token}></ResetPassword> */}
           <div className="loginstyle">{this.state.forgotPassword}</div>
           <div className="border">
             <div className="loginFrom">

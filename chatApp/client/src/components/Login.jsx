@@ -20,10 +20,12 @@ class Login extends Component {
     };
     this.SignIn = this.SignIn.bind(this);
   }
+  //Event Handler for forgot password
   forgotpassword(event) {
     event.preventDefault();
     this.props.history.push("/forgotPassword");
   }
+   //Event Handler for reset password
   register(event) {
     event.preventDefault();
     console.log("register clicked");
@@ -55,7 +57,7 @@ class Login extends Component {
       }
     });
   }
-
+  //setState for email field
   onChangeEmail(event) {
     if (event.target.value.length > 2) {
       this.setState({
@@ -71,6 +73,7 @@ class Login extends Component {
       });
     }
   }
+  //setState for password field
   onChangePassword(event) {
     if (event.target.value.length > 7) {
       this.setState({
@@ -86,7 +89,7 @@ class Login extends Component {
       });
     }
   }
-
+//render function and User Interface for Login
   render() {
     return (
       <MuiThemeProvider>

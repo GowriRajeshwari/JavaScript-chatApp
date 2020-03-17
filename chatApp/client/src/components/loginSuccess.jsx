@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 class loginSuccess extends Component {
+  //Value been passed through props history and set the value in state
   componentWillMount() {
     // when params sent via url
     if (this.props.history.location.state) {
