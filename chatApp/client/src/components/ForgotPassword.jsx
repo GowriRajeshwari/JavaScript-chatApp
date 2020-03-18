@@ -3,7 +3,6 @@ import TextField from "@material-ui/core/TextField";
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { forgotpassword, resetPassword } from "../services/loginService";
-// import ResetPassword from "../components/ResetPassword";
 
 //ForgotPassword Component
 class forgotPassword extends Component {
@@ -37,7 +36,7 @@ class forgotPassword extends Component {
         this.setState({
           token: response.data.data.token
         });
-        localStorage.setItem('token',response.data.data.token );
+        localStorage.setItem('token', response.data.data.token);
         alert("Link is Send to the Mail");
       } else {
         this.setState({ message: "Mail is not Exist" });
@@ -45,7 +44,7 @@ class forgotPassword extends Component {
       }
     });
   }
-//setState for email field
+  //setState for email field
   onChangeEmail(event) {
     if (event.target.value.length > 2) {
       this.setState({
@@ -71,10 +70,9 @@ class forgotPassword extends Component {
         ></meta>
 
         <div className="container">
-          {/* <ResetPassword token={this.state.token}></ResetPassword> */}
           <div className="loginstyle">{this.state.forgotPassword}</div>
           <div className="border">
-            <div className="loginFrom">
+            <div className="loginFromforgot">
               <div className="inputField">
                 <TextField
                   helperText={this.state.helperText}
@@ -84,7 +82,6 @@ class forgotPassword extends Component {
                   onChange={this.onChangeEmail.bind(this)}
                 />
               </div>
-
               <div className="submitButton">
                 <Button id="subbtn" onClick={e => this.sendMail(e)}>
                   SUBMIT

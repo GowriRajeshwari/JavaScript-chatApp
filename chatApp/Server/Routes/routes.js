@@ -22,4 +22,7 @@ router.post(
   usercontroller.resetPassword
 );
 
+//Get all user
+router.get("/users/getUser",usercontroller.getUser);
+
 module.exports = router;

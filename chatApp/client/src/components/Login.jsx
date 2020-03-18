@@ -3,6 +3,8 @@ import TextField from "@material-ui/core/TextField";
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { login } from "../services/loginService";
+import Snackbar from '@material-ui/core/Snackbar';
+import { IconButton } from "@material-ui/core";
 
 //login Component
 class Login extends Component {
@@ -16,9 +18,12 @@ class Login extends Component {
       password: "",
       login: "LOGIN",
       message: "",
-      username: ""
+      username: "",
+      snackbaropen : false,
+      snackbarmsg : ''
     };
     this.SignIn = this.SignIn.bind(this);
+    this.handleClose =this.handleClose.bind(this);
   }
   //Event Handler for forgot password
   forgotpassword(event) {
@@ -52,10 +57,15 @@ class Login extends Component {
           state: { username: this.state.username }
         });
       } else {
-        this.setState({ message: "Login Not Successfull" });
-        alert("Make Sure that email and password is correct");
+        this.setState({ message: "Login Not Successfull",snackbarmsg : "Login Not Successfull" , snackbaropen : true  });
+        //alert("Make Sure that email and password is correct");
       }
     });
+  }
+  //close snackbar
+  handleClose(event){
+   // event.preventDefault();
+    this.setState({snackbaropen : false});
   }
   //setState for email field
   onChangeEmail(event) {
@@ -139,6 +149,15 @@ class Login extends Component {
               Not a Member Yet?
             </Button>
           </div>
+          <Snackbar open={this.state.snackbaropen} autoHideDuration={6000} onClose={this.handleClose}
+          
+          message = { <span>{this.state.snackbarmsg}</span>}
+          action={[
+            <IconButton key="close" arial-label="close" coloe="inherit" onClick={this.handleClose}>
+            x</IconButton>
+          ]}>
+  
+</Snackbar>
         </div>
       </MuiThemeProvider>
     );

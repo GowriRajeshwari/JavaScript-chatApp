@@ -173,3 +173,32 @@ exports.resetPassword = (req, res) => {
     });
   }
 };
+
+//Get all User Data
+exports.getUser=(req,res)=>{
+  try{
+    console.log("get userdata");
+    let response={};
+    userService.getUser(req,(err,data)=>{
+      if(err){
+        console.log(err);
+        response.success = false;
+        response.message = err;
+        res.status(202).send({ data: response });
+      }
+      else{
+        response.success = true;
+        response.data = data;
+        console.log(response);
+        response.message = "Retrieve Data Successfully";
+        res.status(200).send({ data: response });
+      }
+    })
+  }
+  catch(err){
+    console.log(err);
+    // response.success = false;
+    // response.message = err;
+    // res.status(202).send({ data: response });
+  }
+};
