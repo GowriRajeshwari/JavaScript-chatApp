@@ -31,12 +31,7 @@ class Dashboard extends Component{
     this.socket.on('RECEIVE_MESSAGE', function(data){
         addMessage(data);
     });
-  //   this.socket.on('private_chat',function(data){
-  //     var topic = data.topic;
-  //     var message = data.message;
-  //     this.setState({messages: [...this.state.messages, data]});
-  //     alert(topic+': '+message);
-  // });
+
     const addMessage = data => {
       console.log(data);
       this.setState({messages: [...this.state.messages, data]});
@@ -45,11 +40,12 @@ class Dashboard extends Component{
   };
   this.sendMessage = ev => {
     ev.preventDefault();
-    this.socket.emit('SEND_MESSAGE', {
-        author: this.state.username,
-        message: this.state.messagebox
-    })
-    this.setState({messagebox: ''});
+    // this.socket.emit('SEND_MESSAGE', {
+    //     author: this.state.username,
+    //     message: this.state.messagebox
+    // })
+    this.socket.emit('SEND_MESSAGE',{username : this.state.username}, {usr : this.state.topic},{author: this.state.username,message : this.state.messagebox} );
+    this.setState({messagebox:""});
 }
 
   }
@@ -100,7 +96,8 @@ class Dashboard extends Component{
         console.log("clcked",event.target.innerText)
     event.preventDefault();
         this.setState({
-          topic : event.target.innerText,messages:[]
+          topic : event.target.innerText,
+          // messages:[]
         });
       }
     render(){

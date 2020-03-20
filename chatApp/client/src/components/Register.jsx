@@ -18,16 +18,16 @@ class Register extends Component {
       username: "",
       name: "",
       country: "",
-      snackbaropen : false,
-      snackbarmsg : ''
+      snackbaropen: false,
+      snackbarmsg: ''
     };
     this.RegisterBtn = this.RegisterBtn.bind(this);
-    this.handleClose =this.handleClose.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
-   //close snackbar
-   handleClose(event){
-     this.setState({snackbaropen : false});
-   }
+  //close snackbar
+  handleClose(event) {
+    this.setState({ snackbaropen: false });
+  }
   //register Event Handler
   RegisterBtn(event) {
     event.preventDefault();
@@ -63,7 +63,7 @@ class Register extends Component {
       }
     });
   }
-//setState for email field and validation
+  //setState for email field and validation
   onChangeEmail(event) {
     if (event.target.value.length > 2) {
       this.setState({
@@ -79,7 +79,7 @@ class Register extends Component {
       });
     }
   }
- // setState for password field and validation
+  // setState for password field and validation
   onChangePassword(event) {
     if (event.target.value.length > 7) {
       this.setState({
@@ -111,7 +111,7 @@ class Register extends Component {
       });
     }
   }
- // setState for Country field && validation
+  // setState for Country field && validation
   onChangeCountry(event) {
     if (event.target.value.length > 3) {
       this.setState({
@@ -182,7 +182,7 @@ class Register extends Component {
                     REGISTER
                   </Button>
                 </div>
-                
+
               </div>
             </div>
           </div>
@@ -193,4 +193,3 @@ class Register extends Component {
 }
 
 export default Register;
- 
