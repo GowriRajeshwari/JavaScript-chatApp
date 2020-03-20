@@ -4,6 +4,7 @@ const url = "http://localhost:4000/users/login";
 const urlreg = "http://localhost:4000/users/register";
 const urlforgot = "http://localhost:4000/users/forgotpassword";
 const urlresetpassword = "http://localhost:4000/users/resetPassword";
+const getuser = "http://localhost:4000/users/getUser"
 //Calling the login API using axios
 export async function login(data) {
   try {
@@ -55,6 +56,16 @@ export async function resetPassword(data,token) {
         "Authorization" : `Bearer ${token}`
       }
     });
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+//Calling the ResetPAssword API using axios
+export async function getUser() {
+  try {
+    const response = await axios.get(getuser);
     return response;
   } catch (error) {
     console.log(error);

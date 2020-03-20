@@ -9,18 +9,26 @@ import Register from "./components/Register";
 import registerSuccess from "./components/registerSuccess";
 import forgotPassword from "./components/ForgotPassword";
 import resetpassword from "./components/ResetPassword";
+import Dashboard from "./components/Dashboard";
+import Layout from "./components/Layout";
+import Chat from "./components/Chat";
+
 
 function App() {
   return (
     <div>
       <Router history={history}>
         <Switch>
+        {/* <Route path="/" exact component={Layout} /> */}
           <Route path="/" exact component={Login} />
+          <Route path="/Chat" exact component={Chat} />
           <Route path="/loginSuccess" component={loginSuccess} />
           <Route path="/register" component={Register} />
           <Route path="/registerSuccess" component={registerSuccess} />
           <Route path="/forgotPassword" component={forgotPassword} />
           <Route path="/resetPassword" component={resetpassword} />
+          <Route path="/Dashboard" exact component={Dashboard} />
+
         </Switch>
       </Router>
     </div>

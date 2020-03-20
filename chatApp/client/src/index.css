@@ -1,15 +1,4 @@
-.Button {
-  padding: 0px;
-}
-/* body,
-html,
-#root,
-.app,
 .container {
-  width: 100%;
-  height: 100%;
-} */
-/* .container {
   height: 640px;
   font-size: 28px;
   color: rgb(172, 13, 13);
@@ -18,45 +7,31 @@ html,
   align-items: center;
   justify-content: center;
   background-color: #fff;
-} */
-@media only screen and (min-width: 800px) {
-  .container {
-    width: 100%;
-    height: 640px;
-    font-size: 28px;
-    color: rgb(172, 13, 13);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-  }
 }
-
-@media only screen and (max-width: 800px) {
-  .container {
-    height: 640px;
-    font-size: 28px;
-    color: rgb(172, 13, 13);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-  }
+.loginFromforgot{
+  box-sizing: border-box;
+  width: 450px;
+  height: 160px;
+  max-width: 400px;
+  padding-left: 20px;
+  border: 3px solid #73ad21;
 }
-
-@media only screen and (max-width: 800px) and (orientation: portrait) {
-  .container {
-    height: 640px;
-    font-size: 28px;
-    color: rgb(172, 13, 13);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-  }
+#subbtn {
+  width: 90%;
+  background-color: #1189de;
+  font-weight: bold;
+  color: #fff;
+}
+#input {
+  box-sizing: border-box;
+  outline: none;
+  border: solid 2px #1189de;
+  border-radius: 4px;
+  color: #292929;
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 1);
 }
 .top {
   margin-top: 10px;
@@ -65,14 +40,6 @@ html,
   box-sizing: border-box;
   width: 450px;
   height: 250px;
-  max-width: 400px;
-  padding-left: 20px;
-  border: 3px solid #73ad21;
-}
-.loginFromforgot{
-  box-sizing: border-box;
-  width: 450px;
-  height: 160px;
   max-width: 400px;
   padding-left: 20px;
   border: 3px solid #73ad21;
@@ -101,24 +68,18 @@ html,
   border: 3px solid #73ad21;
 } */
 .inputField {
+  /* padding-top: 16px;
+  padding-bottom: 16px; */
   padding: 16px;
 }
-#input {
-  box-sizing: border-box;
-  outline: none;
-  border: solid 2px #1189de;
-  border-radius: 4px;
-  color: #292929;
-  width: 100%;
-  padding: 12px;
-  font-size: 14px;
-  background: rgba(255, 255, 255, 1);
-}
+
 .passinputField {
   padding: 16px;
   width: 50px;
 }
 .submitButton {
+  /* padding-top: 16px;
+  padding-bottom: 16px; */
   padding: 16px;
 }
 .Buttonreg {
@@ -126,23 +87,16 @@ html,
   /* margin-top: 40px; */
 }
 #btn {
-  width: 100%;
-  min-width: 280px;
+  width: 90%;
+  min-width: 270px;
   color: #565656;
-  /* padding: 12px; */
   font-size: 14px;
   font-weight: bold;
-  /* border: solid 2px #1189de; */
   border-radius: 4px;
   background: #fff;
   cursor: pointer;
 }
-#subbtn {
-  width: 90%;
-  background-color: #1189de;
-  font-weight: bold;
-  color: #fff;
-}
+
 #passbtn {
   min-width: 260px;
   color: #565656;
@@ -188,3 +142,96 @@ html,
 .button {
   padding: 10px;
 }
+
+#root{
+  margin : 50px;
+  padding : 40px;
+}
+
+
+.flex{
+  display: flex;
+
+}
+.topicsWindow{
+  width : 30%;
+  height: 300px;
+  border-right: 1px solid grey
+}
+.chatWindow{
+  width:  70%;
+  height: 300px;
+  /* padding: 20px; */
+  margin-top: 15px
+
+}
+.chatBox{
+  width: 900px;
+  /* background-color: #1189de;  */
+}
+#button1{
+  width:15%
+}
+.welcome{
+  color: rgb(172, 13, 13);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+}
+
+
+
+
+@media only screen 
+    and (max-width : 375px) {
+    .container {
+      height: 640px;
+      font-size: 28px;
+      color: #73ad21;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff;
+    }
+    .loginFromforgot{
+      box-sizing: border-box;
+      width: 350px;
+      height: 160px;
+      /* max-width: 360px; */
+      /* padding-left: 20px; */
+      border: 3px solid #73ad21;
+    }
+    #input{
+      box-sizing: border-box;
+      outline: none;
+      border: solid 2px #1189de;
+      border-radius: 4px;
+      color: #292929;
+      /* width: 80%; */
+      /* padding: 12px; */
+      font-size: 14px;
+      background: rgba(255, 255, 255, 1);
+    }
+    #subbtn {
+      /* width: 95%; */
+      background-color: #1189de;
+      font-weight: bold;
+      color: #fff;
+    }
+   
+    #btn {
+      /* width: 100%; */
+      /* min-width: 280px; */
+      color: #565656;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 4px;
+      background: #fff;
+      cursor: pointer;
+    }
+ 
+  
+    }

@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import { login } from "../services/loginService";
 import Snackbar from '@material-ui/core/Snackbar';
 import { IconButton } from "@material-ui/core";
+import { VERIFY_USER } from '../Event'
 
 //login Component
 class Login extends Component {
@@ -20,7 +21,8 @@ class Login extends Component {
       message: "",
       username: "",
       snackbaropen : false,
-      snackbarmsg : ''
+      snackbarmsg : '',
+   
     };
     this.SignIn = this.SignIn.bind(this);
     this.handleClose =this.handleClose.bind(this);
@@ -36,6 +38,8 @@ class Login extends Component {
     console.log("register clicked");
     this.props.history.push("/register");
   }
+  //setuser
+
   //sign in button
   SignIn(event) {
     event.preventDefault();
@@ -53,9 +57,11 @@ class Login extends Component {
           username: response.data.data.data.fullName
         });
         this.props.history.push({
-          pathname: "/loginSuccess",
+          pathname: "/Dashboard",
           state: { username: this.state.username }
         });
+        // const { socket } = this.props
+	    	// socket.emit(VERIFY_USER, this.state.username, this.setUser)
       } else {
         this.setState({ message: "Login Not Successfull",snackbarmsg : "Login Not Successfull" , snackbaropen : true  });
         //alert("Make Sure that email and password is correct");
@@ -150,7 +156,6 @@ class Login extends Component {
             </Button>
           </div>
           <Snackbar open={this.state.snackbaropen} autoHideDuration={6000} onClose={this.handleClose}
-          
           message = { <span>{this.state.snackbarmsg}</span>}
           action={[
             <IconButton key="close" arial-label="close" coloe="inherit" onClick={this.handleClose}>

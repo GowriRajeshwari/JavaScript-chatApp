@@ -17,10 +17,17 @@ class Register extends Component {
       message: "",
       username: "",
       name: "",
-      country: ""
+      country: "",
+      snackbaropen : false,
+      snackbarmsg : ''
     };
     this.RegisterBtn = this.RegisterBtn.bind(this);
+    this.handleClose =this.handleClose.bind(this);
   }
+   //close snackbar
+   handleClose(event){
+     this.setState({snackbaropen : false});
+   }
   //register Event Handler
   RegisterBtn(event) {
     event.preventDefault();
@@ -43,12 +50,12 @@ class Register extends Component {
           email: response.data.data.data.email
         });
         this.props.history.push({
-          pathname: "/registerSuccess",
-          state: {
-            username: this.state.username,
-            email: this.state.email,
-            country: this.state.country
-          }
+          pathname: "/login",
+          // state: {
+          //   username: this.state.username,
+          //   email: this.state.email,
+          //   country: this.state.country
+          // }
         });
       } else {
         this.setState({ message: response.data.data.message });
@@ -175,6 +182,7 @@ class Register extends Component {
                     REGISTER
                   </Button>
                 </div>
+                
               </div>
             </div>
           </div>
@@ -185,3 +193,4 @@ class Register extends Component {
 }
 
 export default Register;
+ 
