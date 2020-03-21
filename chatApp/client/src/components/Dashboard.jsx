@@ -29,6 +29,7 @@ class Dashboard extends Component{
     };
     this.listitem = this.listitem.bind(this);
     this.socket = io('localhost:8080');
+    this.myRef = React.createRef();
 
     this.socket.on('RECEIVE_MESSAGE', function(data){
         addMessage(data);
@@ -38,6 +39,7 @@ class Dashboard extends Component{
     const addMessage = data => {
       console.log(data);
       this.setState({messages: [...this.state.messages, data]});
+      this.setState({messagebox:""});
       console.log(this.state.messages);
       var data = {
         from: this.state.username,
@@ -93,6 +95,7 @@ class Dashboard extends Component{
 
   }
   componentDidMount(){
+    this._onScrollEvent();
     const username = localStorage.getItem("username");
     const id = localStorage.getItem("id");
     this.setState({username : username , id : id});
@@ -111,9 +114,6 @@ class Dashboard extends Component{
     });
     
   }
-
-  
- 
       messagebox(event) {
         if (event.target.value.length > 2) {
           this.setState({
@@ -155,6 +155,11 @@ class Dashboard extends Component{
           }
         });
       }
+      
+
+      _onScrollEvent =()=>{
+      window.scrollTo({top:this.myRef.offsetTop});
+      }
     render(){
         return (
             <div>
@@ -181,7 +186,7 @@ class Dashboard extends Component{
                        
                     </List>
                     </div>
-                    <div className="chatWindow">
+                    <div className="chatWindow" >
                     
                             {/* // [{from : "user", msg : "hello"}].map((chat,i) =>(
                             //   <div className="flex" key={i}>
@@ -191,7 +196,7 @@ class Dashboard extends Component{
                             // )) */}
                             {this.state.userdata.map(usersdata => {
                               return (
-                                  <div>{usersdata.chat}</div>
+                                  <div ref={this.myRef}>{usersdata.chat}</div>
                               )
                           })}
                         
