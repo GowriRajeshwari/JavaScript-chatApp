@@ -27,7 +27,24 @@ const registration = mongoose.Schema(
     timestamps: true
   }
 );
+let chatsData = mongoose.Schema({
+  from:{
+      type:String,
+      required:true
+  },
+  to:{
+      type:String,
+      required:true
+  },
+  chat:{
+      type:String,
+      required:true
+  }
+}, {
+  timestamps: true
+});
 var registerUser = mongoose.model("register", registration);
+let chats = mongoose.model("chats", chatsData);
 exports.registerUser;
 
 exports.userreg = (req, callback) => {
@@ -175,4 +192,28 @@ exports.getUser=(req,callback)=>{
       callback("error")
     }
   })
+}
+
+//Save The Chat
+exports.saveChat = (request, callback) => {
+  try{
+      let chatNewData = new chats({
+          "from" : request.body.from,
+          "to" : request.body.to,
+          "chat" : request.body.chat
+      })
+      chatNewData.save((err,data) => {
+          if(err){
+              console.log("service ERRO : "+ err);
+              callback(err);
+          } else {
+              callback(null,data)
+          }
+      })
+  }
+  catch(err){
+    console.log("service : "+ err);
+    callback(err);
+  }
+  
 }

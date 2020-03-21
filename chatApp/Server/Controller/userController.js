@@ -202,3 +202,27 @@ exports.getUser=(req,res)=>{
     // res.status(202).send({ data: response });
   }
 };
+
+
+// Save chat Controller.
+exports.saveChat = (request, res) => {
+  try {
+      console.log("Get constroller.");
+      let response = {};
+      userService.saveChat(request, (err, data) => {
+          if (err) {
+              console.log("Controller ERRO : "+ err);
+              response.status = false;
+              response.error = err;
+              response.error = "database error.";
+              res.status(404).send(response);
+          } else {
+              response.status = true;
+              response.usersdata = data;
+              res.status(200).send(response);
+          }
+      })
+  } catch (e) {
+      console.log(e);
+  }
+}

@@ -81,3 +81,20 @@ exports.getUser = (req, callback) => {
     console.log(err);
   }
 };
+
+
+//Save Chat Services.
+exports.saveChat = (request, callback) => {
+  try {
+      model.saveChat(request, (err, data) => {
+          if (err) {
+              console.log("service ERRO : "+ err);
+              callback(err);
+          } else{
+              callback(null, data)
+          }
+      })
+  } catch (e) {
+      console.log(e);
+  }
+}

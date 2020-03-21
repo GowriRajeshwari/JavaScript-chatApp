@@ -25,4 +25,7 @@ router.post(
 //Get all user
 router.get("/users/getUser",usercontroller.getUser);
 
+//Save chat
+router.post("/users/saveChat", usercontroller.saveChat);
+
 module.exports = router;
