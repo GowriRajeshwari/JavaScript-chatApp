@@ -5,7 +5,8 @@ import Button from "@material-ui/core/Button";
 import { login } from "../services/loginService";
 import Snackbar from '@material-ui/core/Snackbar';
 import { IconButton } from "@material-ui/core";
-import { VERIFY_USER } from '../Event'
+import io from "socket.io-client";
+
 
 //login Component
 class Login extends Component {
@@ -13,6 +14,7 @@ class Login extends Component {
     super(props);
     this.state = {
       helperText: "",
+      helperTextpassowrd: "",
       error: false,
       users: [],
       email: "",
@@ -26,6 +28,8 @@ class Login extends Component {
     };
     this.SignIn = this.SignIn.bind(this);
     this.handleClose =this.handleClose.bind(this);
+    this.socket = io('localhost:8080');
+
   }
   //Event Handler for forgot password
   forgotpassword(event) {
@@ -60,8 +64,9 @@ class Login extends Component {
           pathname: "/Dashboard",
           state: { username: this.state.username }
         });
-        // const { socket } = this.props
-	    	// socket.emit(VERIFY_USER, this.state.username, this.setUser)
+        this.socket.emit('CONNECT', {
+          username: this.state.username,
+      })
       } else {
         this.setState({ message: "Login Not Successfull",snackbarmsg : "Login Not Successfull" , snackbaropen : true  });
         //alert("Make Sure that email and password is correct");
@@ -93,13 +98,13 @@ class Login extends Component {
   onChangePassword(event) {
     if (event.target.value.length > 7) {
       this.setState({
-        helperText: "",
+        helperTextpassowrd: "",
         error: false,
         password: event.target.value
       });
     } else {
       this.setState({
-        helperText: "Password should be 7 letters",
+        helperTextpassowrd: "Password should be 7 letters",
         error: true,
         password: event.target.value
       });
@@ -136,7 +141,7 @@ class Login extends Component {
                   variant="outlined"
                   type="password"
                   label="Password"
-                  helperText={this.state.helperText}
+                  helperText={this.state.helperTextpassowrd}
                   onChange={this.onChangePassword.bind(this)}
                 ></TextField>
               </div>

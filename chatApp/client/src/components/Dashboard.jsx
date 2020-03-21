@@ -40,11 +40,11 @@ class Dashboard extends Component{
   };
   this.sendMessage = ev => {
     ev.preventDefault();
-    // this.socket.emit('SEND_MESSAGE', {
-    //     author: this.state.username,
-    //     message: this.state.messagebox
-    // })
-    this.socket.emit('SEND_MESSAGE',{username : this.state.username}, {usr : this.state.topic},{author: this.state.username,message : this.state.messagebox} );
+    this.socket.emit('SEND_MESSAGE', {
+        author: this.state.topic,
+        message: this.state.messagebox
+    })
+   // this.socket.emit('SEND_MESSAGE',{username : this.state.username}, {usr : this.state.topic},{author: this.state.username,message : this.state.messagebox} );
     this.setState({messagebox:""});
 }
 
