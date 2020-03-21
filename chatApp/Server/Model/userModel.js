@@ -183,7 +183,7 @@ exports.resetPassword = (req, callback) => {
 //Get User Data
 exports.getUser=(req,callback)=>{
   console.log(req.body);
-  registerUser.find({'email' : {'$ne' : req.body.email}},(err,data)=>{
+  registerUser.find({'email' : {'$ne' : request.body.email}},{ _id: 1, firstName: 1, email: 1},(err,data)=>{
     if(data){
       console.log(req.body);
       callback(null,data);
