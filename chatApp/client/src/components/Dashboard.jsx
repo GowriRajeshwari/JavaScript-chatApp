@@ -7,7 +7,7 @@ import ListItemTest from "@material-ui/core/ListItemText";
 import Chip from "@material-ui/core/Chip";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { getUser } from "../services/loginService";
+import { getUser,getChat,saveChat } from "../services/loginService";
 import io from "socket.io-client";
 
 
@@ -23,20 +23,37 @@ class Dashboard extends Component{
       username:"",
       allchat:[],
       messages:[],
-      message:""
+      message:"",
+      id:"",
+      userdata:[]
     };
     this.listitem = this.listitem.bind(this);
     this.socket = io('localhost:8080');
 
     this.socket.on('RECEIVE_MESSAGE', function(data){
         addMessage(data);
+       
     });
 
     const addMessage = data => {
       console.log(data);
       this.setState({messages: [...this.state.messages, data]});
       console.log(this.state.messages);
-
+      var data = {
+        from: this.state.username,
+        to: this.state.topic
+      };
+      getChat(data).then(response => {
+        console.log( response.data.usersdata)
+        if (response.status === 200) {
+          this.setState({
+            userdata: response.data.usersdata,
+          });
+        } else {
+         // this.setState({ message: "Login Not Successfull",snackbarmsg : "Login Not Successfull" , snackbaropen : true  });
+          //alert("Make Sure that email and password is correct");
+        }
+      });
   };
   this.sendMessage = ev => {
     ev.preventDefault();
@@ -44,21 +61,41 @@ class Dashboard extends Component{
         author: this.state.topic,
         message: this.state.messagebox
     })
-   // this.socket.emit('SEND_MESSAGE',{username : this.state.username}, {usr : this.state.topic},{author: this.state.username,message : this.state.messagebox} );
-    this.setState({messagebox:""});
+    let data = {
+      from: this.state.username,
+      to: this.state.topic,
+      chat: `${this.state.username} : ${this.state.messagebox}`
+    };
+    saveChat(data).then(response => {
+      console.log( response)
+      if (response.status === 200) {
+        // this.setState({
+        //   userdata: response.data.usersdata,
+        // });
+      } else {
+       // this.setState({ message: "Login Not Successfull",snackbarmsg : "Login Not Successfull" , snackbaropen : true  });
+        //alert("Make Sure that email and password is correct");
+      }
+    });
+    this.setState({messagebox:""});   
 }
+
+
 
   }
   componentWillMount() {
     // when params sent via url
-    if (this.props.history.location.state) {
-      let params = this.props.history.location.state.username;
-      this.setState({ username: params });
-    }
-    // this.setState({ allchat: React.useContext(CTX) });
+    // if (this.props.history.location.state) {
+    //   let params = this.props.history.location.state.username;
+    //   this.setState({ username: params });
+    // }
+
 
   }
   componentDidMount(){
+    const username = localStorage.getItem("username");
+    const id = localStorage.getItem("id");
+    this.setState({username : username , id : id});
     getUser().then(response => {
       console.log(response.data.data.data);
       if (response.status === 200) {
@@ -72,6 +109,7 @@ class Dashboard extends Component{
         //alert("Make Sure that email and password is correct");
       }
     });
+    
   }
 
   
@@ -92,12 +130,29 @@ class Dashboard extends Component{
           });
         }
       }
-      listitem(event){
+     async listitem(event){
         console.log("clcked",event.target.innerText)
     event.preventDefault();
-        this.setState({
+       await this.setState({
           topic : event.target.innerText,
           // messages:[]
+        });
+        console.log(this.state.topic);
+
+        let data = {
+          from: this.state.username,
+          to: this.state.topic
+        };
+        getChat(data).then(response => {
+          console.log( response.data.usersdata)
+          if (response.status === 200) {
+            this.setState({
+              userdata: response.data.usersdata,
+            });
+          } else {
+           // this.setState({ message: "Login Not Successfull",snackbarmsg : "Login Not Successfull" , snackbaropen : true  });
+            //alert("Make Sure that email and password is correct");
+          }
         });
       }
     render(){
@@ -134,9 +189,9 @@ class Dashboard extends Component{
                             //   <Typography variant='p'>{chat.msg}</Typography> 
                             //   </div>
                             // )) */}
-                            {this.state.messages.map(message => {
+                            {this.state.userdata.map(usersdata => {
                               return (
-                                  <div>{message.author}: {message.message}</div>
+                                  <div>{usersdata.chat}</div>
                               )
                           })}
                         

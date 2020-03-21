@@ -183,7 +183,7 @@ exports.resetPassword = (req, callback) => {
 //Get User Data
 exports.getUser=(req,callback)=>{
   console.log(req.body);
-  registerUser.find({'email' : {'$ne' : request.body.email}},{ _id: 1, firstName: 1, email: 1},(err,data)=>{
+  registerUser.find({'email' : {'$ne' : req.body.email}},(err,data)=>{
     if(data){
       console.log(req.body);
       callback(null,data);
@@ -216,4 +216,23 @@ exports.saveChat = (request, callback) => {
     callback(err);
   }
   
+}
+
+//Get The Chat data
+exports.getChat = (request, callback) => {
+  try{
+      chats.find({"$or": [{
+          "from": request.body.from,"to":request.body.to
+      }, {
+          "from": request.body.to,"to":request.body.from
+      }]},(err,data) => {
+          if(err){
+              callback(err);
+          }else{
+              callback(null,data);
+          }
+      })
+  }catch(err){
+      throw err;
+  }
 }

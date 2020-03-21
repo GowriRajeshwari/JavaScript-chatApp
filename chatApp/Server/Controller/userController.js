@@ -226,3 +226,26 @@ exports.saveChat = (request, res) => {
       console.log(e);
   }
 }
+
+// Get chats constroller.
+exports.getChat = (request, res) => {
+  try {
+      console.log("Get constroller.");
+      let response = {};
+      userService.getChat(request, (err, data) => {
+          if (err) {
+              console.log("Controller ERRO : "+ err);
+              response.status = false;
+              response.error = err;
+              response.error = "database error.";
+              res.status(404).send(response);
+          } else {
+              response.status = true;
+              response.usersdata = data;
+              res.status(200).send(response);
+          }
+      })
+  } catch (e) {
+      console.log(e);
+  }
+}

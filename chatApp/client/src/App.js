@@ -10,7 +10,6 @@ import registerSuccess from "./components/registerSuccess";
 import forgotPassword from "./components/ForgotPassword";
 import resetpassword from "./components/ResetPassword";
 import Dashboard from "./components/Dashboard";
-import Layout from "./components/Layout";
 import Chat from "./components/Chat";
 
 

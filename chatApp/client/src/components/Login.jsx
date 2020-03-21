@@ -24,7 +24,7 @@ class Login extends Component {
       username: "",
       snackbaropen : false,
       snackbarmsg : '',
-   
+      id:""
     };
     this.SignIn = this.SignIn.bind(this);
     this.handleClose =this.handleClose.bind(this);
@@ -54,19 +54,22 @@ class Login extends Component {
     };
     console.log(data);
     login(data).then(response => {
-      //console.log(response.data.data.data.fullName);
+      console.log(response.data.data.data._id);
       if (response.status === 200) {
         this.setState({
           message: "Login Successfully",
-          username: response.data.data.data.fullName
+          username: response.data.data.data.fullName,
+          id : response.data.data.data._id
         });
+        localStorage.setItem("id",this.state.id);
+        localStorage.setItem("username",this.state.username);
         this.props.history.push({
           pathname: "/Dashboard",
-          state: { username: this.state.username }
+         // state: { username: this.state.username }
         });
-        this.socket.emit('CONNECT', {
-          username: this.state.username,
-      })
+      //   this.socket.emit('CONNECT', {
+      //     username: this.state.username,
+      // })
       } else {
         this.setState({ message: "Login Not Successfull",snackbarmsg : "Login Not Successfull" , snackbaropen : true  });
         //alert("Make Sure that email and password is correct");

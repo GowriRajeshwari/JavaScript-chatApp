@@ -11,19 +11,19 @@ server = app.listen(8080, function(){
 io = socket(server);
 
 io.on('connection', (socket) => {
-    socket.on('CONNECT', function(data){
-        console.log(socket.id);
-            connectedClients[data.username]=socket.id;
-            console.log(connectedClients);
-          //  io.to(`${socket.id}`).emit('RECEIVE_MESSAGE', data);
-            io.emit('ID', connectedClients);
-        })
+    // socket.on('CONNECT', function(data){
+    //     console.log(socket.id);
+    //         connectedClients[data.username]=socket.id;
+    //         console.log(Object.keys(connectedClients) );
+    //       //  io.to(`${socket.id}`).emit('RECEIVE_MESSAGE', data);
+    //         //io.emit('ID', Object.keys(connectedClients));
+    //     })
     socket.on('SEND_MESSAGE', function(data){
-        console.log(connectedClients[data.author])
-       io.to(`${socket.id}`).emit('RECEIVE_MESSAGE', data,{id : connectedClients[data.author]});
+        console.log(data)
+       //io.to(`${socket.id}`).emit('RECEIVE_MESSAGE', data,{id : connectedClients[data.author]});
        //io.sockets.socket(connectedClients[data.author]).emit('RECEIVE_MESSAGE',data);
 
-        // io.emit('RECEIVE_MESSAGE', data);
+         io.emit('RECEIVE_MESSAGE', data);
     })
 
 //  socket.on('SEND_MESSAGE', function(usr, username, message) {
