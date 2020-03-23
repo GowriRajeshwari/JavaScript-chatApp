@@ -21,17 +21,22 @@ class resetpassword extends Component {
       resetpassword: "RESET PASSWORD",
       message: "",
       username: "",
-      token :"",
+      token: "",
       snackbaropen: false,
       snackbarmsg: ''
     };
     this.resetPassword = this.resetPassword.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
+  //close snackbar
+  handleClose(event) {
+    this.setState({ snackbaropen: false });
   }
   //ComponentDidMount in Life cycle function be used
-  componentDidMount(){
+  componentDidMount() {
     const token = localStorage.getItem('token');
-    this.setState({token : token});
-    console.log("token",JSON.stringify(token));
+    this.setState({ token: token });
+    console.log("token", JSON.stringify(token));
   }
   //reset Password Event Handler
   resetPassword(event) {
@@ -43,19 +48,18 @@ class resetpassword extends Component {
     };
     console.log(data);
     //Calling the API using axios method
-    resetPassword(data,this.state.token).then(response => {
+    resetPassword(data, this.state.token).then(response => {
       console.log(response);
       if (response.status === 200) {
         this.setState({
           message: "Password reset Successfully"
         });
       } else {
-        this.setState({ message: "Password is Not changed" });
-        alert("Make Sure that password & confirmPassword is correct");
+        this.setState({ message: "Password is Not changed",snackbarmsg :" Make Sure that password & confirmPassword is correct"  , snackbaropen : true  });
       }
     });
   }
-//setState for confirm password field
+  //setState for confirm password field
   onChangeConfirmPassword(event) {
     if (event.target.value.length > 2) {
       this.setState({
@@ -71,7 +75,7 @@ class resetpassword extends Component {
       });
     }
   }
-//setState for password field
+  //setState for password field
   onChangePassword(event) {
     if (event.target.value.length > 7) {
       this.setState({
@@ -87,7 +91,7 @@ class resetpassword extends Component {
       });
     }
   }
-//Render function && User Interface for resetPassword
+  //Render function && User Interface for resetPassword
   render() {
     return (
       <MuiThemeProvider>
@@ -134,6 +138,13 @@ class resetpassword extends Component {
             <div className="loginstyle">{this.state.message}</div>
 
           </div>
+          <Snackbar open={this.state.snackbaropen} autoHideDuration={6000} onClose={this.handleClose}
+            message={<span>{this.state.snackbarmsg}</span>}
+            action={[
+              <IconButton key="close" arial-label="close" coloe="inherit" onClick={this.handleClose}>
+                x</IconButton>
+            ]}>
+          </Snackbar>
         </div>
       </MuiThemeProvider>
     );
