@@ -4,16 +4,12 @@ import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemTest from "@material-ui/core/ListItemText";
-import Chip from "@material-ui/core/Chip";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { getUser, getChat, saveChat } from "../services/loginService";
 import io from "socket.io-client";
 import Snackbar from '@material-ui/core/Snackbar';
 import { IconButton } from "@material-ui/core";
-
-
-
 
 class Dashboard extends Component {
   constructor(props) {
@@ -30,18 +26,18 @@ class Dashboard extends Component {
       id: "",
       userdata: [],
       show: false,
-      snackbaropen : false,
-      snackbarmsg : '',
+      snackbaropen: false,
+      snackbarmsg: '',
     };
     this.listitem = this.listitem.bind(this);
     this.messagebox = this.messagebox.bind(this);
-    this.handleClose =this.handleClose.bind(this);
+    this.handleClose = this.handleClose.bind(this);
     this.socket = io('localhost:8080');
     this.myRef = React.createRef();
 
+    //recevice the data from socket
     this.socket.on('RECEIVE_MESSAGE', function (data) {
       addMessage(data);
-
     });
 
     const addMessage = data => {
@@ -52,7 +48,7 @@ class Dashboard extends Component {
         from: this.state.username,
         to: this.state.topic
       };
-
+      //call the Getchat API from the server
       getChat(data).then(response => {
         console.log(response.data.usersdata)
         if (response.status === 200) {
@@ -60,12 +56,13 @@ class Dashboard extends Component {
             userdata: response.data.usersdata,
           });
         } else {
-         console.log("Not Successfull")
+          this.setState({ snackbarmsg: "Chat can't be retrieved", snackbaropen: true });
+          console.log("Not Successfull")
         }
       });
 
     };
-    
+
     //sending the message to server
     this.sendMessage = ev => {
       ev.preventDefault();
@@ -80,28 +77,27 @@ class Dashboard extends Component {
           to: this.state.topic,
           chat: `${this.state.messagebox}`
         };
-        
+        //save the chat to the database
         saveChat(data).then(response => {
           console.log(response)
           if (response.status === 200) {
-          
+
           } else {
-        this.setState({snackbarmsg : "msg not sent" , snackbaropen : true  });
+            this.setState({ snackbarmsg: "msg not sent", snackbaropen: true });
           }
         });
 
         this.setState({ messagebox: null });
       } else {
-        this.setState({snackbarmsg : "pls click the recevier" , snackbaropen : true  });
-
+        this.setState({ snackbarmsg: "pls click the recevier", snackbaropen: true });
       }
     }
   }
-   //close snackbar
-   handleClose(event){
-    // event.preventDefault();
-     this.setState({snackbaropen : false});
-   }
+  //close snackbar
+  handleClose(event) {
+    this.setState({ snackbaropen: false });
+  }
+
   componentDidMount() {
     this._onScrollEvent();
     const username = localStorage.getItem("username");
@@ -116,12 +112,12 @@ class Dashboard extends Component {
         });
         console.log(this.state.users)
       } else {
-        // this.setState({ message: "Login Not Successfull",snackbarmsg : "Login Not Successfull" , snackbaropen : true  });
-        //alert("Make Sure that email and password is correct");
+        this.setState({ snackbarmsg: "User not received", snackbaropen: true });
       }
     });
 
   }
+  //messagebox event handler
   messagebox(event) {
     if (event.target.value.length > 2) {
       this.setState({
@@ -138,6 +134,7 @@ class Dashboard extends Component {
       });
     }
   }
+  //List the item 
   async listitem(event) {
     console.log("clcked", event.target.innerText)
     this.setState({ show: true })
@@ -158,8 +155,7 @@ class Dashboard extends Component {
           userdata: response.data.usersdata,
         });
       } else {
-        // this.setState({ message: "Login Not Successfull",snackbarmsg : "Login Not Successfull" , snackbaropen : true  });
-        //alert("Make Sure that email and password is correct");
+        this.setState({ snackbarmsg: "Chat can't be retrieved", snackbaropen: true });
       }
     });
   }
@@ -168,6 +164,7 @@ class Dashboard extends Component {
   _onScrollEvent = () => {
     window.scrollTo({ top: this.myRef.offsetTop });
   }
+
   render() {
     return (
       <div>
@@ -199,7 +196,6 @@ class Dashboard extends Component {
               <List style={{ maxHeight: '100%', overflow: 'auto', padding: '5px' }} >
                 {this.state.userdata.map(usersdata => {
                   return (
-                    // <div ref={this.myRef}>{usersdata.chat}</div>
                     <div className="flex" >
                       <Typography variant='p' ref={this.myRef} style={{ padding: '5px' }}>{usersdata.from}  : {usersdata.chat}</Typography>
                     </div>
@@ -210,7 +206,6 @@ class Dashboard extends Component {
 
             </div>
           </div>
-          {/* <div className="flex"> */}
           <div className="flexsend">
             <TextField
               className="chatBox"
@@ -221,18 +216,16 @@ class Dashboard extends Component {
             <Button id="button1" variant="contained" onClick={e => this.sendMessage(e)}>
               SEND
                 </Button>
-            {/* </div> */}
-
           </div>
         </Paper>
         <Snackbar open={this.state.snackbaropen} autoHideDuration={6000} onClose={this.handleClose}
-          message = { <span>{this.state.snackbarmsg}</span>}
+          message={<span>{this.state.snackbarmsg}</span>}
           action={[
             <IconButton key="close" arial-label="close" coloe="inherit" onClick={this.handleClose}>
-            x</IconButton>
+              x</IconButton>
           ]}>
-  
-</Snackbar>
+
+        </Snackbar>
         <div>{this.state.messagebox}</div>
       </div>
     );
