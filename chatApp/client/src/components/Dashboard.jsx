@@ -219,6 +219,7 @@ class Dashboard extends Component {
           <div className="flexsend">
             <div>
               <TextField
+               variant="outlined"
               className="chatBox"
               label="send the chat"
               onChange={this.messagebox}

@@ -70,7 +70,7 @@ exports.loginUser = (req, res) => {
   if (errors) {
     response.success = false;
     response.message = "Invalid Input";
-    res.status(404).send(response);
+    res.status(500).send(response);
     console.log("error in registration invalid input", errors);
   } else {
     console.log(req.body);
@@ -80,7 +80,7 @@ exports.loginUser = (req, res) => {
         response.success = false;
         response.message = err;
         console.log(err);
-        res.status(404).send({ data: response });
+        res.status(500).send({ data: response });
       } else {
         response.success = true;
         response.data = data;

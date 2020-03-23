@@ -55,6 +55,8 @@ class Login extends Component {
     if(data.email || data.password !=''){
       login(data).then(response => {
         // console.log(response.data.data.data._id);
+        console.log(response);
+
         if (response.status === 200) {
           this.setState({
             message: "Login Successfully",
@@ -64,7 +66,7 @@ class Login extends Component {
           this.props.history.push({
             pathname: "/Dashboard",
           });
-        } else {
+        } else{
           this.setState({ message: "Login Not Successfull", snackbarmsg: "Login Not Successfull", snackbaropen: true });
         }
       });
