@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import './Css/Dashboard.css'
 import App from './App';
-import './.env'
-import * as serviceWorker from './serviceWorker';
-require('dotenv').config()
 
+import * as serviceWorker from './serviceWorker';
+const dotenv = require('dotenv');
+dotenv.config();
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

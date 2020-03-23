@@ -8,7 +8,8 @@ import axios from "axios";
 // const getchat = "http://localhost:4000/users/getChat"
 // const savechat = "http://localhost:4000/users/saveChat";
 //Calling the login API using axios
-require('dotenv').config()
+const dotenv = require('dotenv');
+dotenv.config();
 export async function login(data) {
   console.log(process.env.url)
   try {

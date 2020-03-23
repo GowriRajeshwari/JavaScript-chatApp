@@ -6,7 +6,6 @@ import { login } from "../services/loginService";
 import Snackbar from '@material-ui/core/Snackbar';
 import { IconButton } from "@material-ui/core";
 import io from "socket.io-client";
-require('dotenv').config()
 
 
 //login Component

@@ -3,6 +3,9 @@ import TextField from "@material-ui/core/TextField";
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { resetPassword } from "../services/loginService";
+import Snackbar from '@material-ui/core/Snackbar';
+import { IconButton } from "@material-ui/core";
+
 
 //ResetPassword Component
 class resetpassword extends Component {
@@ -18,7 +21,9 @@ class resetpassword extends Component {
       resetpassword: "RESET PASSWORD",
       message: "",
       username: "",
-      token :""
+      token :"",
+      snackbaropen: false,
+      snackbarmsg: ''
     };
     this.resetPassword = this.resetPassword.bind(this);
   }

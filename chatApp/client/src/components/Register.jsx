@@ -3,6 +3,9 @@ import TextField from "@material-ui/core/TextField";
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { register } from "../services/loginService";
+import Snackbar from '@material-ui/core/Snackbar';
+import { IconButton } from "@material-ui/core";
+
 //Register Component
 class Register extends Component {
   constructor(props) {
@@ -58,8 +61,7 @@ class Register extends Component {
           // }
         });
       } else {
-        this.setState({ message: response.data.data.message });
-        alert(this.state.message);
+        this.setState({ message:  response.data.data.message,snackbarmsg :  response.data.data.message , snackbaropen : true  });
       }
     });
   }
@@ -186,6 +188,13 @@ class Register extends Component {
               </div>
             </div>
           </div>
+          <Snackbar open={this.state.snackbaropen} autoHideDuration={6000} onClose={this.handleClose}
+          message = { <span>{this.state.snackbarmsg}</span>}
+          action={[
+            <IconButton key="close" arial-label="close" coloe="inherit" onClick={this.handleClose}>
+            x</IconButton>
+          ]}>
+</Snackbar>
         </div>
       </MuiThemeProvider>
     );
