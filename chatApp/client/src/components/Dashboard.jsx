@@ -97,6 +97,15 @@ class Dashboard extends Component {
   handleClose(event) {
     this.setState({ snackbaropen: false });
   }
+  //logout
+  logOut(event){
+    this.props.history.push({
+      pathname: "/",
+    });
+    localStorage.setItem("id",'');
+    localStorage.setItem("username",'');
+
+  }
 
   componentDidMount() {
     this._onScrollEvent();
@@ -167,7 +176,13 @@ class Dashboard extends Component {
 
   render() {
     return (
+     
+
       <div>
+         <div className="logoutbtn"><Button variant="contained" onClick={e => this.logOut(e)}>
+          Logout
+        </Button>
+        </div>
         <div className="welcome">  <Typography variant="h5" component="h3" >
           Welcome {this.state.username}
         </Typography>

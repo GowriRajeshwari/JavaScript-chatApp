@@ -45,3 +45,13 @@
     width: 100%;
     flex-direction: row;
   }
+
+  .logoutbtn{
+    /* background-color: #1189de;  */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+  }
+ 
