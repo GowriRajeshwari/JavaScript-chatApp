@@ -3,6 +3,9 @@ import TextField from "@material-ui/core/TextField";
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { forgotpassword, resetPassword } from "../services/loginService";
+import Snackbar from '@material-ui/core/Snackbar';
+import { IconButton } from "@material-ui/core";
+
 
 //ForgotPassword Component
 class forgotPassword extends Component {
@@ -17,11 +20,18 @@ class forgotPassword extends Component {
       forgotPassword: "FORGOT PASSWORD",
       message: "",
       username: "",
-      token: ""
+      token: "",
+      snackbaropen : false,
+      snackbarmsg : '',
     };
     this.sendMail = this.sendMail.bind(this);
+    this.handleClose =this.handleClose.bind(this);
   }
-
+ //close snackbar
+ handleClose(event){
+  // event.preventDefault();
+   this.setState({snackbaropen : false});
+ }
   //sendMail in button
   sendMail(event) {
     event.preventDefault();
@@ -37,10 +47,10 @@ class forgotPassword extends Component {
           token: response.data.data.token
         });
         localStorage.setItem('token', response.data.data.token);
-        alert("Link is Send to the Mail");
+        this.setState({snackbarmsg : "Link is Send to the Mail" , snackbaropen : true  });
+
       } else {
-        this.setState({ message: "Mail is not Exist" });
-        alert("Make sure Mail is Exist");
+        this.setState({ message:"Mail is not Exist",snackbarmsg : "Make sure Mail is Exist" , snackbaropen : true  });
       }
     });
   }
