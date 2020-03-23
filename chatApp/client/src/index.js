@@ -2,8 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import './Css/Dashboard.css'
+import './Css/Login.css'
+import './Css/Register.css'
+import './Css/ForgetPassword.css'
+import './Css/ResetPassword.css'
 import App from './App';
-
 import * as serviceWorker from './serviceWorker';
 const dotenv = require('dotenv');
 dotenv.config();

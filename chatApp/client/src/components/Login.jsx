@@ -22,12 +22,12 @@ class Login extends Component {
       login: "LOGIN",
       message: "",
       username: "",
-      snackbaropen : false,
-      snackbarmsg : '',
-      id:""
+      snackbaropen: false,
+      snackbarmsg: '',
+      id: ""
     };
     this.SignIn = this.SignIn.bind(this);
-    this.handleClose =this.handleClose.bind(this);
+    this.handleClose = this.handleClose.bind(this);
     this.socket = io('localhost:8080');
 
   }
@@ -36,13 +36,13 @@ class Login extends Component {
     event.preventDefault();
     this.props.history.push("/forgotPassword");
   }
-   //Event Handler for reset password
+  //Event Handler for reset password
   register(event) {
     event.preventDefault();
     console.log("register clicked");
     this.props.history.push("/register");
   }
- 
+
   //sign in button
   SignIn(event) {
     event.preventDefault();
@@ -52,28 +52,33 @@ class Login extends Component {
       password: this.state.password
     };
     console.log(data);
-    login(data).then(response => {
-      console.log(response.data.data.data._id);
-      if (response.status === 200) {
-        this.setState({
-          message: "Login Successfully",
-          username: response.data.data.data.fullName,
-          id : response.data.data.data._id
-        });
-        localStorage.setItem("id",this.state.id);
-        localStorage.setItem("username",this.state.username);
-        this.props.history.push({
-          pathname: "/Dashboard",
-        });
-      } else {
-        this.setState({ message: "Login Not Successfull",snackbarmsg : "Login Not Successfull" , snackbaropen : true  });
-      }
-    });
+    if(data.email || data.password !=''){
+      login(data).then(response => {
+        // console.log(response.data.data.data._id);
+        if (response.status === 200) {
+          this.setState({
+            message: "Login Successfully",
+            username: response.data.data.data.fullName,
+          });
+          localStorage.setItem("username", this.state.username);
+          this.props.history.push({
+            pathname: "/Dashboard",
+          });
+        } else {
+          this.setState({ message: "Login Not Successfull", snackbarmsg: "Login Not Successfull", snackbaropen: true });
+        }
+      });
+    }
+    else{
+      this.setState({ message: "Fields are empty", snackbarmsg: "Fields are empty", snackbaropen: true });
+
+    }
+   
   }
   //close snackbar
-  handleClose(event){
-   // event.preventDefault();
-    this.setState({snackbaropen : false});
+  handleClose(event) {
+    // event.preventDefault();
+    this.setState({ snackbaropen: false });
   }
   //setState for email field
   onChangeEmail(event) {
@@ -107,7 +112,7 @@ class Login extends Component {
       });
     }
   }
-//render function and User Interface for Login
+  //render function and User Interface for Login
   render() {
     return (
       <MuiThemeProvider>
@@ -158,13 +163,13 @@ class Login extends Component {
             </Button>
           </div>
           <Snackbar open={this.state.snackbaropen} autoHideDuration={6000} onClose={this.handleClose}
-          message = { <span>{this.state.snackbarmsg}</span>}
-          action={[
-            <IconButton key="close" arial-label="close" coloe="inherit" onClick={this.handleClose}>
-            x</IconButton>
-          ]}>
-  
-</Snackbar>
+            message={<span>{this.state.snackbarmsg}</span>}
+            action={[
+              <IconButton key="close" arial-label="close" color="inherit" onClick={this.handleClose}>
+                x</IconButton>
+            ]}>
+
+          </Snackbar>
         </div>
       </MuiThemeProvider>
     );

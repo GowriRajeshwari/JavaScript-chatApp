@@ -81,13 +81,12 @@ class Dashboard extends Component {
         saveChat(data).then(response => {
           console.log(response)
           if (response.status === 200) {
-
+            this.setState({ messagebox: '' });
           } else {
             this.setState({ snackbarmsg: "msg not sent", snackbaropen: true });
           }
         });
 
-        this.setState({ messagebox: null });
       } else {
         this.setState({ snackbarmsg: "pls click the recevier", snackbaropen: true });
       }
@@ -98,20 +97,18 @@ class Dashboard extends Component {
     this.setState({ snackbaropen: false });
   }
   //logout
-  logOut(event){
+  logOut(event) {
     this.props.history.push({
       pathname: "/",
     });
-    localStorage.setItem("id",'');
-    localStorage.setItem("username",'');
+    localStorage.setItem("username", '');
 
   }
 
   componentDidMount() {
     this._onScrollEvent();
     const username = localStorage.getItem("username");
-    const id = localStorage.getItem("id");
-    this.setState({ username: username, id: id });
+    this.setState({ username: username });
     getUser().then(response => {
       console.log(response.data.data.data);
       if (response.status === 200) {
@@ -176,10 +173,10 @@ class Dashboard extends Component {
 
   render() {
     return (
-     
+
 
       <div>
-         <div className="logoutbtn"><Button variant="contained" onClick={e => this.logOut(e)}>
+        <div className="logoutbtn"><Button variant="contained" onClick={e => this.logOut(e)}>
           Logout
         </Button>
         </div>
@@ -217,21 +214,20 @@ class Dashboard extends Component {
                   )
                 })}
               </List>
-
-
             </div>
           </div>
           <div className="flexsend">
-          <div><TextField
+            <div>
+              <TextField
               className="chatBox"
               label="send the chat"
               onChange={this.messagebox}
               value={this.state.messagebox}
-            ></TextField>
-            <Button id="button1" variant="contained" onClick={e => this.sendMessage(e)}>
-              SEND
-                </Button></div>
-           
+            >
+            </TextField>
+              <Button id="button1" variant="contained" onClick={e => this.sendMessage(e)}>
+                SEND
+              </Button></div>
           </div>
         </Paper>
         <Snackbar open={this.state.snackbaropen} autoHideDuration={6000} onClose={this.handleClose}

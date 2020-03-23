@@ -3,8 +3,6 @@
     margin : 50px;
     /* padding : 40px; */
   }
-  
-  
   .flex{
     display: flex;
   
@@ -48,8 +46,6 @@
   }
 
   .logoutbtn{
-    /* background-color: #1189de;  */
-
     display: flex;
     flex-direction: row;
     justify-content: flex-end;

@@ -14,6 +14,7 @@ class resetpassword extends Component {
     super(props);
     this.state = {
       helperText: "",
+      helperTextpassword:'',
       error: false,
       email: "",
       password: "",
@@ -79,13 +80,13 @@ class resetpassword extends Component {
   onChangePassword(event) {
     if (event.target.value.length > 7) {
       this.setState({
-        helperText: "",
+        helperTextpassword: "",
         error: false,
         password: event.target.value
       });
     } else {
       this.setState({
-        helperText: "Password should be 7 letters",
+        helperTextpassword: "Password should be 7 letters",
         error: true,
         password: event.target.value
       });
@@ -100,28 +101,28 @@ class resetpassword extends Component {
           content="width=device-width, initial-scale=1.0"
         ></meta>
 
-        <div className="container">
-          <div className="loginstyle">{this.state.resetpassword}</div>
+        <div className="containerReset">
+          <div className="loginstyleReset">{this.state.resetpassword}</div>
 
-          <div className="border">
-            <div className="loginFrom">
-              <div className="inputField">
+          <div className="borderReset">
+            <div className="loginFromReset">
+              <div className="inputFieldReset">
                 <TextField
                   hintText="Password"
                   floatingLabelText="Password"
-                  id="btn"
+                  id="btnReset"
                   variant="outlined"
                   type="password"
                   label="Password"
-                  helperText={this.state.helperText}
+                  helperText={this.state.helperTextpassword}
                   onChange={this.onChangePassword.bind(this)}
                 ></TextField>
               </div>
-              <div className="inputField">
+              <div className="inputFieldReset">
                 <TextField
                   hintText="Confirm Password"
                   floatingLabelText="Confirm Password"
-                  id="btn"
+                  id="btnReset"
                   variant="outlined"
                   type="password"
                   label="Confirm Password"
@@ -129,8 +130,8 @@ class resetpassword extends Component {
                   onChange={this.onChangeConfirmPassword.bind(this)}
                 ></TextField>
               </div>
-              <div className="submitButton">
-                <Button id="subbtn" onClick={e => this.resetPassword(e)}>
+              <div className="submitButtonReset">
+                <Button id="subbtnReset" onClick={e => this.resetPassword(e)}>
                   SUBMIT
                 </Button>
               </div>

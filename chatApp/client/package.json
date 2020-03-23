@@ -21,7 +21,7 @@
     "uuid": "^7.0.2"
   },
   "scripts": {
-    "start": "env-cmd -f ./.env concurrently 'npm run react' 'npm run server'",
+    "start": "react-scripts start",
     "react": "react-scripts start",
     "build": "react-scripts build",
     "server": "nodemon src/components/app.js",

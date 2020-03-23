@@ -41,7 +41,7 @@ class forgotPassword extends Component {
     };
     console.log(data);
     forgotpassword(data).then(response => {
-      console.log(response.data.data.token);
+      // console.log(response.data.data.token);
       if (response.status === 200) {
         this.setState({
           token: response.data.data.token
@@ -79,26 +79,34 @@ class forgotPassword extends Component {
           content="width=device-width, initial-scale=1.0"
         ></meta>
 
-        <div className="container">
-          <div className="loginstyle">{this.state.forgotPassword}</div>
-          <div className="border">
-            <div className="loginFromforgot">
-              <div className="inputField">
+        <div className="containerForgot">
+          <div className="loginstyleForgot">{this.state.forgotPassword}</div>
+          <div className="borderForgot">
+            <div className="loginFromForgot">
+              <div className="inputFieldForgot">
                 <TextField
                   helperText={this.state.helperText}
-                  id="btn"
+                  id="btnForgot"
                   variant="outlined"
                   label="Email"
                   onChange={this.onChangeEmail.bind(this)}
                 />
               </div>
-              <div className="submitButton">
-                <Button id="subbtn" onClick={e => this.sendMail(e)}>
+              <div className="submitButtonForgot">
+                <Button id="subbtnForgot" onClick={e => this.sendMail(e)}>
                   SUBMIT
                 </Button>
               </div>
             </div>
           </div>
+          <Snackbar open={this.state.snackbaropen} autoHideDuration={6000} onClose={this.handleClose}
+            message={<span>{this.state.snackbarmsg}</span>}
+            action={[
+              <IconButton key="close" arial-label="close" coloe="inherit" onClick={this.handleClose}>
+                x</IconButton>
+            ]}>
+
+          </Snackbar>
         </div>
       </MuiThemeProvider>
     );

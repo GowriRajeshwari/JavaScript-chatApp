@@ -54,11 +54,6 @@ class Register extends Component {
         });
         this.props.history.push({
           pathname: "/",
-          // state: {
-          //   username: this.state.username,
-          //   email: this.state.email,
-          //   country: this.state.country
-          // }
         });
       } else {
         this.setState({ message:  response.data.data.message,snackbarmsg :  response.data.data.message , snackbaropen : true  });
@@ -137,57 +132,56 @@ class Register extends Component {
           content="width=device-width, initial-scale=1.0"
         ></meta>
 
-        <div className="container">
-          <div className="loginstyle">{this.state.register}</div>
+        <div className="containerreg">
+          <div className="loginstylereg">{this.state.register}</div>
 
-          <div className="border">
-            <div className="regFrom">
-              <div className="top">
-                <div className="inputField">
+          <div className="borderreg">
+            <div className="regFromreg">
+                <div className="inputFieldreg">
                   <TextField
-                    id="btn"
+                    id="btnreg"
                     variant="outlined"
                     label="Name(FullName)"
                     onChange={this.onChangeName.bind(this)}
                   />
                 </div>
-                <div className="inputField">
+                <div className="inputFieldreg">
                   <TextField
-                    id="btn"
+                    id="btnreg"
                     variant="outlined"
                     label="Email"
                     onChange={this.onChangeEmail.bind(this)}
                   />
                 </div>
-                <div className="inputField">
+                <div className="inputFieldreg">
                   <TextField
                     hintText="Password"
                     floatingLabelText="Password"
-                    id="btn"
+                    id="btnreg"
                     variant="outlined"
                     type="password"
                     label="Password"
                     onChange={this.onChangePassword.bind(this)}
                   ></TextField>
                 </div>
-                <div className="inputField">
+                <div className="inputFieldreg">
                   <TextField
-                    id="btn"
+                    id="btnreg"
                     variant="outlined"
                     label="Country"
                     onChange={this.onChangeCountry.bind(this)}
                   />
                 </div>
-                <div className="helperttext">{this.state.helperText}</div>
-                <div className="Buttonreg">
-                  <Button id="subbtn" onClick={e => this.RegisterBtn(e)}>
+                <div className="helperttextreg">{this.state.helperText}</div>
+                <div className="Buttonregreg">
+                  <Button id="subbtnreg" onClick={e => this.RegisterBtn(e)}>
                     REGISTER
                   </Button>
                 </div>
 
               </div>
             </div>
-          </div>
+          
           <Snackbar open={this.state.snackbaropen} autoHideDuration={6000} onClose={this.handleClose}
           message = { <span>{this.state.snackbarmsg}</span>}
           action={[
