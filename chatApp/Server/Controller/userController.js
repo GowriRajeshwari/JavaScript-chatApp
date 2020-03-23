@@ -30,7 +30,7 @@ exports.registerUser = (req, res) => {
     response.success = false;
     let data = { message: "Invalid Input" };
     response.data = data;
-    res.status(404).send(response);
+    res.status(500).send(response);
     console.log("error in registration invalid input", errors);
   } else {
     console.log(req.body);
@@ -39,7 +39,7 @@ exports.registerUser = (req, res) => {
         console.log(err);
         response.success = false;
         response.message = err;
-        res.status(404).send({ data: response });
+        res.status(500).send({ data: response });
       } else {
         response.success = true;
         response.data = data;
@@ -108,7 +108,7 @@ exports.forgotPassword = (req, res) => {
   if (errors) {
     response.success = false;
     response.message = "Invalid Input";
-    res.status(404).send(response);
+    res.status(500).send(response);
     console.log("error in registration invalid input", errors);
   } else {
     userService.forgotPassword(req, (err, data) => {
@@ -116,7 +116,7 @@ exports.forgotPassword = (req, res) => {
         console.log(err);
         response.success = false;
         response.message = err;
-        res.status(404).send({ data: response });
+        res.status(500).send({ data: response });
       } else {
         console.log("data");
         let data_id = data._id;
@@ -154,14 +154,14 @@ exports.resetPassword = (req, res) => {
     console.log(err);
     response.success = false;
     response.message = err;
-    res.status(404).send({ data: response });
+    res.status(500).send({ data: response });
   } else {
     userService.resetPassword(req, (err, data) => {
       if (err) {
         console.log(err);
         response.success = false;
         response.message = err;
-        res.status(404).send({ data: response });
+        res.status(500).send({ data: response });
       } else {
         //sending the response to client
         response.success = true;
@@ -184,7 +184,7 @@ exports.getUser=(req,res)=>{
         console.log(err);
         response.success = false;
         response.message = err;
-        res.status(404).send({ data: response });
+        res.status(500).send({ data: response });
       }
       else{
         response.success = true;
@@ -199,7 +199,7 @@ exports.getUser=(req,res)=>{
     console.log(err);
     // response.success = false;
     // response.message = err;
-    // res.status(404).send({ data: response });
+    // res.status(500).send({ data: response });
   }
 };
 
@@ -215,7 +215,7 @@ exports.saveChat = (request, res) => {
               response.status = false;
               response.error = err;
               response.error = "database error.";
-              res.status(404).send(response);
+              res.status(500).send(response);
           } else {
               response.status = true;
               response.usersdata = data;
@@ -238,7 +238,7 @@ exports.getChat = (request, res) => {
               response.status = false;
               response.error = err;
               response.error = "database error.";
-              res.status(404).send(response);
+              res.status(500).send(response);
           } else {
               response.status = true;
               response.usersdata = data;
