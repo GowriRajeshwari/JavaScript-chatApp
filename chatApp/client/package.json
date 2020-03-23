@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
     "concurrently": "^5.1.0",
+    "dotenv": "^8.2.0",
     "history": "^4.10.1",
     "nodemon": "^2.0.2",
     "react": "^16.13.0",
@@ -20,10 +21,10 @@
     "uuid": "^7.0.2"
   },
   "scripts": {
-    "start": "concurrently 'npm run react' 'npm run server'",
+    "start": "env-cmd -f ./.env concurrently 'npm run react' 'npm run server'",
     "react": "react-scripts start",
     "build": "react-scripts build",
-    "server": "nodemon src/server/app.js",
+    "server": "nodemon src/components/app.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

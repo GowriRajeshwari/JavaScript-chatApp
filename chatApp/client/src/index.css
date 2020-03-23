@@ -142,7 +142,7 @@
 .button {
   padding: 10px;
 }
-
+/* 
 #root{
   margin : 50px;
   padding : 40px;
@@ -161,14 +161,12 @@
 .chatWindow{
   width:  70%;
   height: 300px;
-  /* padding: 20px; */
   margin-top: 15px;
-  overflowY: 'scroll'
 
 }
 .chatBox{
   width: 900px;
-  /* background-color: #1189de;  */
+  background-color: #1189de; 
 }
 #button1{
   width:15%
@@ -180,7 +178,7 @@
   align-items: center;
   justify-content: center;
   background-color: #fff;
-}
+} */
 
 
 

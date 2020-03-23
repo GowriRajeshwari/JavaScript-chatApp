@@ -6,6 +6,7 @@ import { login } from "../services/loginService";
 import Snackbar from '@material-ui/core/Snackbar';
 import { IconButton } from "@material-ui/core";
 import io from "socket.io-client";
+require('dotenv').config()
 
 
 //login Component
@@ -42,8 +43,7 @@ class Login extends Component {
     console.log("register clicked");
     this.props.history.push("/register");
   }
-  //setuser
-
+ 
   //sign in button
   SignIn(event) {
     event.preventDefault();
@@ -65,14 +65,9 @@ class Login extends Component {
         localStorage.setItem("username",this.state.username);
         this.props.history.push({
           pathname: "/Dashboard",
-         // state: { username: this.state.username }
         });
-      //   this.socket.emit('CONNECT', {
-      //     username: this.state.username,
-      // })
       } else {
         this.setState({ message: "Login Not Successfull",snackbarmsg : "Login Not Successfull" , snackbaropen : true  });
-        //alert("Make Sure that email and password is correct");
       }
     });
   }

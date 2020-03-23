@@ -40,7 +40,7 @@ class Register extends Component {
     };
     console.log(data);
     register(data).then(response => {
-      console.log(response.data.data.data.fullName);
+      console.log(response);
       // console.log(response.data);
       if (response.status === 200) {
         this.setState({
@@ -50,7 +50,7 @@ class Register extends Component {
           email: response.data.data.data.email
         });
         this.props.history.push({
-          pathname: "/login",
+          pathname: "/",
           // state: {
           //   username: this.state.username,
           //   email: this.state.email,

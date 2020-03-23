@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import './Css/Dashboard.css'
 import App from './App';
+import './.env'
 import * as serviceWorker from './serviceWorker';
+require('dotenv').config()
+
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

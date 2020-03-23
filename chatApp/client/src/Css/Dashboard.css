@@ -1,4 +1,47 @@
-.root{
-    margin : "300px";
-    padding : spacing(3,2),
-}
+
+#root{
+    margin : 50px;
+    /* padding : 40px; */
+  }
+  
+  
+  .flex{
+    display: flex;
+  
+  }
+  .topicsWindow{
+    width : 30%;
+    height: 300px;
+    border-right: 1px solid grey;
+    padding: 5px;
+    
+  }
+  .chatWindow{
+    width:  70%;
+    height: 280px;
+    margin-top: 15px;
+    padding : 12px;
+  
+  }
+  .chatBox{
+    width: 850px;
+    /* background-color: #1189de;  */
+  }
+  #button1{
+    width:10%;
+    padding : 5px;
+    margin-top: 11px;
+  }
+  .welcome{
+    color: rgb(172, 13, 13);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+  }
+  .flexsend{
+    direction:   flex;
+    width: 100%;
+    flex-direction: row;
+  }
