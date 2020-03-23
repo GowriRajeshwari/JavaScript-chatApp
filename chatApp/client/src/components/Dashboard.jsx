@@ -222,7 +222,7 @@ class Dashboard extends Component {
             </div>
           </div>
           <div className="flexsend">
-            <TextField
+          <div><TextField
               className="chatBox"
               label="send the chat"
               onChange={this.messagebox}
@@ -230,7 +230,8 @@ class Dashboard extends Component {
             ></TextField>
             <Button id="button1" variant="contained" onClick={e => this.sendMessage(e)}>
               SEND
-                </Button>
+                </Button></div>
+           
           </div>
         </Paper>
         <Snackbar open={this.state.snackbaropen} autoHideDuration={6000} onClose={this.handleClose}

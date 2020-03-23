@@ -24,7 +24,7 @@
   
   }
   .chatBox{
-    width: 850px;
+    width: 1000px;
     /* background-color: #1189de;  */
   }
   #button1{
@@ -42,8 +42,9 @@
   }
   .flexsend{
     direction:   flex;
-    width: 100%;
-    flex-direction: row;
+    width: 100%; 
+     flex-direction: row;
+    margin-left: 10px;
   }
 
   .logoutbtn{
