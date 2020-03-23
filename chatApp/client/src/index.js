@@ -8,8 +8,7 @@ import './Css/ForgetPassword.css'
 import './Css/ResetPassword.css'
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-const dotenv = require('dotenv');
-dotenv.config();
+
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

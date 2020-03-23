@@ -7,10 +7,9 @@ const getuser = "http://localhost:4000/users/getUser"
 const getchat = "http://localhost:4000/users/getChat"
 const savechat = "http://localhost:4000/users/saveChat";
 //Calling the login API using axios
-const dotenv = require('dotenv');
-dotenv.config();
 export async function login(data) {
-  console.log(data)
+  console.log(process.env);
+  console.log(process.env.URL)
   try {
     const response = await axios.post(url, data, {
       headers: {
