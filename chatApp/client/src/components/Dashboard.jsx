@@ -110,7 +110,7 @@ class Dashboard extends Component {
     const username = localStorage.getItem("username");
     this.setState({ username: username });
     getUser().then(response => {
-      console.log(response.data.data.data);
+      console.log(response);
       if (response.status === 200) {
         console.log(response)
         this.setState({
