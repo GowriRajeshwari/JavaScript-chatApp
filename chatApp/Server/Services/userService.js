@@ -8,7 +8,7 @@ exports.register = (req, callback) => {
         //if error callback function is called and passing the error
         callback(err);
       } else {
-        callback(null, data);
+        callback(null,JSON.parse(JSON.stringify( data)));
       }
     });
   } catch (err) {
@@ -24,7 +24,7 @@ exports.loginUser = (req, callback) => {
         //if error callback function is called and passing the error
         callback(err);
       } else {
-        callback(null, data);
+        callback(null, JSON.parse(JSON.stringify(data)));
       }
     });
   } catch (err) {
