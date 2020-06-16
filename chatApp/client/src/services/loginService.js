@@ -16,7 +16,8 @@ export async function login(data) {
         "Content-Type": "application/json"
       }
     });
-    return response;
+    console.log("response",JSON.parse(JSON.stringify(response)))
+    return JSON.parse(JSON.stringify(response));
   } catch (error) {
     console.log(error);
     return error;
@@ -30,7 +31,7 @@ export async function register(data) {
         "Content-Type": "application/json"
       }
     });
-    return response;
+    return JSON.parse(JSON.stringify(response));
   } catch (error) {
     console.log(error);
     return error;
@@ -44,7 +45,7 @@ export async function forgotpassword(data) {
         "Content-Type": "application/json"
       }
     });
-    return response;
+    return JSON.parse(JSON.stringify(response));
   } catch (error) {
     console.log(error);
     return error;
@@ -59,7 +60,7 @@ export async function resetPassword(data,token) {
         "Authorization" : `Bearer ${token}`
       }
     });
-    return response;
+    return JSON.parse(JSON.stringify(response));
   } catch (error) {
     console.log(error);
     return error;
@@ -71,7 +72,7 @@ export async function getUser() {
 
   try {
     const response = await axios.get(process.env.REACT_APP_getuser);
-    return response;
+    return JSON.parse(JSON.stringify(response));
   } catch (error) {
     console.log(error);
     return error;
@@ -85,7 +86,7 @@ export async function getChat(data) {
         "Content-Type": "application/json"
       }
     });
-    return response;
+    return JSON.parse(JSON.stringify(response));
   } catch (error) {
     console.log(error);
     return error;
@@ -100,7 +101,7 @@ export async function saveChat(data) {
         "Content-Type": "application/json"
       }
     });
-    return response;
+    return JSON.parse(JSON.stringify(response));
   } catch (error) {
     console.log(error);
     return error;

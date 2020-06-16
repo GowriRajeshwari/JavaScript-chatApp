@@ -58,6 +58,8 @@ class Login extends Component {
         console.log(response);
 
         if (response.status === 200) {
+          // var myobj = JSON.parse(JSON.stringify(response))
+          // console.log(myobj)
           this.setState({
             message: "Login Successfully",
             username: response.data.data.data.fullName,

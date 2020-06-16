@@ -1,7 +1,7 @@
 var express = require('express');
 var socket = require('socket.io');
 require('dotenv').config();
- console.log(process.env);
+//  console.log(process.env);
 var app = express();
 
 server = app.listen(8080, function(){
