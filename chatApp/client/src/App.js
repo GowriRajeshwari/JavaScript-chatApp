@@ -8,8 +8,6 @@ import Register from "./components/Register";
 import forgotPassword from "./components/ForgotPassword";
 import resetpassword from "./components/ResetPassword";
 import Dashboard from "./components/Dashboard";
-import Chat from "./components/Chat";
-
 
 function App() {
   return (
@@ -17,12 +15,10 @@ function App() {
       <Router history={history}>
         <Switch>
           <Route path="/" exact component={Login} />
-          <Route path="/Chat" exact component={Chat} />
           <Route path="/register" component={Register} />
           <Route path="/forgotPassword" component={forgotPassword} />
           <Route path="/resetPassword" component={resetpassword} />
           <Route path="/Dashboard" exact component={Dashboard} />
-
         </Switch>
       </Router>
     </div>
